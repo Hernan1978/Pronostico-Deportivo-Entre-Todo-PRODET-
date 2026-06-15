@@ -186,33 +186,42 @@ body{
 
 <script>
 // PEGA TU URL DE GOOGLE APPS SCRIPT ACÁ ABAJO:
-const API_URL = 'https://script.google.com/macros/s/AKfycbz8dslozCc1vYv_aTJlLHrUfbEL2j4G-tRzS3FJbWQJ7QGMjPYW-IbIEY1UzUDgoiE2yg/exec'; 
+const API_URL = 'https://script.google.com/macros/s/AKfycbx3gVgnFx8VdHkjgX0rIav9kAx4OQ9_I8LL7Kii1dY2mnzwoee59bgU5YgRr26XxS0bfw/exec'; 
 const ADMIN_PIN = '1234'; 
 const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
 
+// AQUÍ ESTÁN TUS ESCUDOS REALES ASIGNADOS UNO POR UNO
 const ESCUDOS = {
-  'River Plate': 'https://www.thesportsdb.com/images/media/team/badge/xvuwtw1421635011.png',
-  'Boca Juniors': 'https://www.thesportsdb.com/images/media/team/badge/ttqtr31421635006.png',
-  'Racing': 'https://www.thesportsdb.com/images/media/team/badge/racing-club.png',
-  'Independiente': 'https://www.thesportsdb.com/images/media/team/badge/independiente.png',
-  'San Lorenzo': 'https://www.thesportsdb.com/images/media/team/badge/san-lorenzo.png',
-  'Huracán': 'https://www.thesportsdb.com/images/media/team/badge/huracan.png',
-  'Vélez': 'https://www.thesportsdb.com/images/media/team/badge/velez-sarsfield.png',
-  'Talleres': 'https://www.thesportsdb.com/images/media/team/badge/talleres.png',
-  'Belgrano': 'https://www.thesportsdb.com/images/media/team/badge/belgrano.png',
-  'Estudiantes': 'https://www.thesportsdb.com/images/media/team/badge/estudiantes.png',
-  'Gimnasia': 'https://www.thesportsdb.com/images/media/team/badge/gimnasia.png',
-  'Lanús': 'https://www.thesportsdb.com/images/media/team/badge/lanus.png',
-  'Rosario Central': 'https://www.thesportsdb.com/images/media/team/badge/rosario-central.png',
-  'Newells': 'https://www.thesportsdb.com/images/media/team/badge/newells-old-boys.png',
+  'Aldosivi': 'https://www.thesportsdb.com/images/media/team/badge/aldosivi.png',
+  'Argentinos Juniors': 'https://www.thesportsdb.com/images/media/team/badge/ttqtr31421635006.png',
+  'Atletico Tucuman': 'https://www.thesportsdb.com/images/media/team/badge/atletico-tucuman.png',
   'Banfield': 'https://www.thesportsdb.com/images/media/team/badge/banfield.png',
-  'Godoy Cruz': 'https://www.thesportsdb.com/images/media/team/badge/godoy-cruz.png',
-  'Argentinos Jrs': 'https://www.thesportsdb.com/images/media/team/badge/argentinos-juniors.png',
-  'Union': 'https://www.thesportsdb.com/images/media/team/badge/union-santa-fe.png',
-  'Colon': 'https://www.thesportsdb.com/images/media/team/badge/colon-santa-fe.png',
-  'Tigre': 'https://www.thesportsdb.com/images/media/team/badge/tigre.png',
+  'Barracas Central': 'https://www.thesportsdb.com/images/media/team/badge/barracas-central.png',
+  'Belgrano (cba)': 'https://www.thesportsdb.com/images/media/team/badge/belgrano.png',
+  'Boca Juniors': 'https://www.thesportsdb.com/images/media/team/badge/ttqtr31421635006.png',
+  'Central Cordoba': 'https://www.thesportsdb.com/images/media/team/badge/central-cordoba.png',
+  'Defensa y Justicia': 'https://www.thesportsdb.com/images/media/team/badge/defensa-justicia.png',
+  'Deportivo Riestra': 'https://www.thesportsdb.com/images/media/team/badge/deportivo-riestra.png',
+  'Estudiantes de La Plata': 'https://www.thesportsdb.com/images/media/team/badge/estudiantes.png',
+  'Estudiantes de Rio Cuarto': 'https://www.thesportsdb.com/images/media/team/badge/estudiantes-rio-cuarto.png',
+  'Gimnasia y Esgrima de La Plata': 'https://www.thesportsdb.com/images/media/team/badge/gimnasia.png',
+  'Gimnasia y Esgrima de Mendoza': 'https://www.thesportsdb.com/images/media/team/badge/gimnasia-mendoza.png',
+  'Huracan': 'https://www.thesportsdb.com/images/media/team/badge/huracan.png',
+  'Independiente': 'https://www.thesportsdb.com/images/media/team/badge/independiente.png',
+  'Independiente Rivadavia': 'https://www.thesportsdb.com/images/media/team/badge/independiente-rivadavia.png',
+  'Instituto': 'https://www.thesportsdb.com/images/media/team/badge/instituto.png',
+  'Lanus': 'https://www.thesportsdb.com/images/media/team/badge/lanus.png',
+  'Newell`s Old Boys': 'https://www.thesportsdb.com/images/media/team/badge/newells-old-boys.png',
   'Platense': 'https://www.thesportsdb.com/images/media/team/badge/platense.png',
-  'Defensa y Justicia': 'https://www.thesportsdb.com/images/media/team/badge/defensa-justicia.png'
+  'Racing Club': 'https://www.thesportsdb.com/images/media/team/badge/racing-club.png',
+  'River Plate': 'https://www.thesportsdb.com/images/media/team/badge/xvuwtw1421635011.png',
+  'Rosario Central': 'https://www.thesportsdb.com/images/media/team/badge/rosario-central.png',
+  'San Lorenzo de Almagro': 'https://www.thesportsdb.com/images/media/team/badge/san-lorenzo.png',
+  'Sarmiento de Junin': 'https://www.thesportsdb.com/images/media/team/badge/sarmiento-junin.png',
+  'Talleres de Cordoba': 'https://www.thesportsdb.com/images/media/team/badge/talleres.png',
+  'Tigre': 'https://www.thesportsdb.com/images/media/team/badge/tigre.png',
+  'Union de Santa Fe': 'https://www.thesportsdb.com/images/media/team/badge/union-santa-fe.png',
+  'Velez Sarfield': 'https://www.thesportsdb.com/images/media/team/badge/velez-sarsfield.png'
 };
 
 let usuario=null, email=null, esAdmin=false, usuarioActivo=true;
