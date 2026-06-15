@@ -8,12 +8,9 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  background:#f0f4f8;
   min-height:100vh;
-  /* Fondo de estadio de noche sutil para toda la app */
-  background-image: linear-gradient(to bottom, rgba(240,244,248,0.92), rgba(240,244,248,0.92)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&q=80');
-  background-size: cover;
-  background-position: center;
+  /* Fondo nocturno de estadio generado por código (CSS) - Carga SÍ O SÍ */
+  background: radial-gradient(circle at 50% 30%, #1e3a1e 0%, #0a1f0a 60%, #050f05 100%);
   background-attachment: fixed;
 }
 .screen{display:none}.screen.active{display:block}
@@ -23,16 +20,14 @@ body{
   min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
   padding:24px;position:relative;overflow:hidden;
 }
-.login-bg{
-  position:absolute;inset:0;
-  background-image:url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&q=80');
-  background-size:cover;background-position:center;
-  filter:brightness(0.4) saturate(1.2);
-  z-index:0;
-}
-.login-overlay{
-  position:absolute;inset:0;z-index:1;
-  background:linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(10,25,50,0.85) 100%);
+.login-bg {
+  position: absolute; inset: 0;
+  /* Simulación de reflectores de cancha de noche */
+  background: 
+    linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8)),
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(255,255,255,0.15) 0%, transparent 40%);
+  z-index: 0;
 }
 .login-top{position:relative;z-index:2;text-align:center;margin-bottom:28px}
 .login-top .logo{font-size:52px;line-height:1;margin-bottom:10px}
@@ -40,79 +35,79 @@ body{
 .login-top p{color:rgba(255,255,255,0.6);font-size:13px;margin-top:4px;letter-spacing:0.06em;text-transform:uppercase}
 .login-card{
   position:relative;z-index:2;
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);
-  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.15);
   border-radius:24px;padding:24px;width:100%;max-width:360px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 .field-label{font-size:11px;color:rgba(255,255,255,0.7);display:block;margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
 .glass-input{
   width:100%;padding:13px 14px;border-radius:12px;
-  border:1px solid rgba(255,255,255,0.25);
-  background:rgba(0,0,0,0.3);
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(0,0,0,0.4);
   color:#fff;font-size:15px;outline:none;
   transition:border-color 0.15s;margin-bottom:12px;
 }
-.glass-input::placeholder{color:rgba(255,255,255,0.4)}
-.glass-input:focus{border-color:rgba(255,255,255,0.6);background:rgba(0,0,0,0.4)}
+.glass-input::placeholder{color:rgba(255,255,255,0.3)}
+.glass-input:focus{border-color:rgba(255,255,255,0.5);background:rgba(0,0,0,0.5)}
 .btn-login{
   width:100%;padding:14px;border-radius:12px;border:none;
-  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  background:linear-gradient(135deg,#16a34a,#15803d);
   color:#fff;font-size:15px;font-weight:700;cursor:pointer;
-  box-shadow:0 4px 20px rgba(37,99,235,0.4);
+  box-shadow:0 4px 20px rgba(22,163,74,0.3);
 }
 
-/* Botón ninja original: Abajo a la derecha adentro de la app */
+/* El botón invisible ahora está fijo para toda la pantalla, siempre accesible abajo a la derecha */
 .admin-trigger{
   position:fixed;bottom:0;right:0;
-  width:50px;height:50px;
-  background:transparent;border:none;cursor:pointer;z-index:99;
+  width:60px;height:60px;
+  background:transparent;border:none;cursor:pointer;z-index:9999;
 }
 
 /* Modal contraseña admin */
 .modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(4px);z-index:100;
+  position:fixed;inset:0;background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(5px);z-index:10000;
   display:flex;align-items:center;justify-content:center;padding:16px;
 }
 .modal-overlay.hidden{display:none}
 .modal-card{
-  background:#1e293b;border-radius:20px;padding:24px;
-  width:100%;max-width:320px;border:1px solid rgba(255,255,255,0.08);
+  background:#142414;border-radius:20px;padding:24px;
+  width:100%;max-width:320px;border:1px solid rgba(255,255,255,0.1);
   text-align:center;
 }
 .modal-title{color:#fff;font-size:16px;font-weight:700;margin-bottom:6px}
 .dark-input{
   width:100%;padding:12px;border-radius:12px;
-  border:1px solid #334155;background:#0f172a;
+  border:1px solid #224422;background:#0a140a;
   color:#fff;font-size:16px;outline:none;margin-bottom:14px;text-align:center;
 }
 .modal-close{
-  background:none;border:none;color:#64748b;
+  background:none;border:none;color:#a3e635;
   font-size:13px;cursor:pointer;margin-top:10px;text-decoration:underline;
 }
 
 /* ── HEADER ── */
-.header{background:linear-gradient(135deg,#1a3a5c,#0f2438);padding:16px 16px 12px;position:sticky;top:0;z-index:10}
+.header{background:linear-gradient(135deg,#142414,#0a140a);padding:16px 16px 12px;position:sticky;top:0;z-index:10}
 .header-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
 .header h1{color:#fff;font-size:17px;font-weight:600}
 .header-sub{color:rgba(255,255,255,0.5);font-size:12px;margin-top:2px}
 .logout-btn{background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:20px;font-size:12px;cursor:pointer}
 .stats-row{display:flex;gap:8px}
-.stat-pill{flex:1;background:rgba(255,255,255,0.1);border-radius:12px;padding:8px;text-align:center}
+.stat-pill{flex:1;background:rgba(255,255,255,0.08);border-radius:12px;padding:8px;text-align:center}
 .stat-val{color:#fff;font-size:19px;font-weight:700}
 .stat-lab{color:rgba(255,255,255,0.45);font-size:10px;text-transform:uppercase}
 
 /* ── TABS ── */
 .tabs{display:flex;background:#fff;border-bottom:1px solid #eee;position:sticky;top:112px;z-index:9}
 .tab{flex:1;padding:12px 8px;font-size:13px;border:none;background:transparent;color:#999;cursor:pointer;border-bottom:2.5px solid transparent;font-weight:500}
-.tab.active{color:#1a3a5c;border-bottom-color:#1a3a5c}
+.tab.active{color:#15803d;border-bottom-color:#15803d}
 .content{padding:12px 12px 80px}
 
 /* ── CARDS ── */
-.card{background:#fff;border-radius:16px;margin-bottom:10px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.05)}
-.card-header{padding:10px 14px;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center}
+.card{background:rgba(255,255,255,0.95);border-radius:16px;margin-bottom:10px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+.card-header{padding:10px 14px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center}
 .card-body{padding:14px}
 .badge{font-size:11px;padding:3px 9px;border-radius:99px;font-weight:600}
 .b-green{background:#f0fdf4;color:#16a34a}
@@ -125,20 +120,19 @@ body{
 .equipos{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
 .equipo{flex:1;text-align:center}
 .escudo-img{width:48px;height:48px;object-fit:contain;margin:0 auto 5px;display:block}
-.escudo-fb{font-size:34px;line-height:48px;text-align:center;display:block;margin-bottom:5px}
 .equipo-nom{font-size:12px;font-weight:600;color:#1e293b}
 .vs-box{flex-shrink:0;text-align:center}
-.marcador{font-size:24px;font-weight:800;color:#1a3a5c}
+.marcador{font-size:24px;font-weight:800;color:#15803d}
 .marcador-sub{font-size:10px;color:#94a3b8}
 
 /* ── PRONÓSTICOS ── */
-.pron-section{border-top:1px solid #f3f4f6;padding-top:12px}
+.pron-section{border-top:1px solid #e5e7eb;padding-top:12px}
 .pron-label{font-size:12px;color:#94a3b8;text-align:center;margin-bottom:10px}
 .pron-controles{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px}
 .gol-group{display:flex;align-items:center;gap:8px}
-.gol-btn{width:36px;height:36px;border-radius:10px;border:1.5px solid #e5e7eb;background:#f8fafc;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.gol-num{width:44px;height:44px;border-radius:12px;background:#1a3a5c;color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.guardar-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#1a3a5c;color:#fff;font-size:14px;font-weight:600;cursor:pointer}
+.gol-btn{width:36px;height:36px;border-radius:10px;border:1.5px solid #cbd5e1;background:#f8fafc;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.gol-num{width:44px;height:44px;border-radius:12px;background:#15803d;color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.guardar-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#15803d;color:#fff;font-size:14px;font-weight:600;cursor:pointer}
 .pron-guardado{display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border-radius:10px;padding:10px 12px}
 
 /* Cartel de Bloqueo por Pago en Pantalla Principal */
@@ -148,18 +142,17 @@ body{
 }
 
 /* ── POSICIONES Y ADMIN ── */
-.pos-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #f3f4f6}
-.pos-row.yo{background:#eff6ff}
+.pos-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #e5e7eb}
+.pos-row.yo{background:#f0fdf4}
 .pos-num{font-size:15px;font-weight:700;width:22px;text-align:center;color:#94a3b8}
-.pos-avatar{width:38px;height:38px;border-radius:50%;background:#eff6ff;color:#2563eb;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .pos-nombre{flex:1;font-size:14px;font-weight:500}
-.pos-pts{font-size:16px;font-weight:700;color:#1a3a5c}
+.pos-pts{font-size:16px;font-weight:700;color:#15803d}
 .partido-admin{background:#fff;border-radius:12px;padding:12px;margin-bottom:8px}
-.num-input{width:50px;padding:8px;border-radius:10px;border:1.5px solid #e5e7eb;text-align:center}
-.admin-btn{padding:8px 14px;border-radius:10px;border:none;background:#1a3a5c;color:#fff;font-size:13px;cursor:pointer}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;z-index:200;opacity:0;transition:opacity 0.2s;white-space:nowrap}
+.num-input{width:50px;padding:8px;border-radius:10px;border:1.5px solid #cbd5e1;text-align:center}
+.admin-btn{padding:8px 14px;border-radius:10px;border:none;background:#15803d;color:#fff;font-size:13px;cursor:pointer}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;z-index:20000;opacity:0;transition:opacity 0.2s;white-space:nowrap}
 .toast.show{opacity:1}
-.btn-primary{width:100%;padding:12px;border-radius:12px;border:none;background:#1a3a5c;color:#fff;font-weight:600;cursor:pointer}
+.btn-primary{width:100%;padding:12px;border-radius:12px;border:none;background:#15803d;color:#fff;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
@@ -167,7 +160,6 @@ body{
 <div id="loginScreen" class="screen active">
   <div class="login-wrap">
     <div class="login-bg"></div>
-    <div class="login-overlay"></div>
 
     <div class="login-top">
       <div class="logo">⚽</div>
@@ -201,7 +193,6 @@ body{
     </div>
     <div class="stats-row" id="statsRow">
       <div class="stat-pill"><div class="stat-val">–</div><div class="stat-lab">Puntos</div></div>
-      <div class="stat-pill"><div class="stat-val">–</div><div class="stat-lab">Exactos</div></div>
       <div class="stat-pill"><div class="stat-val">–</div><div class="stat-lab">Sin cargar</div></div>
     </div>
   </div>
@@ -215,14 +206,14 @@ body{
   <div id="tabPartidos" class="content"><div class="loading">Cargando...</div></div>
   <div id="tabPosiciones" class="content" style="display:none"><div class="loading">Cargando...</div></div>
   <div id="tabAdmin" class="content" style="display:none"></div>
-
-  <button class="admin-trigger" onclick="abrirModalAdmin()"></button>
 </div>
+
+<button class="admin-trigger" onclick="abrirModalAdmin()"></button>
 
 <div class="modal-overlay hidden" id="adminModal">
   <div class="modal-card">
     <div class="modal-title">🔐 Panel de Control</div>
-    <p style="color:#64748b;font-size:12px;margin-bottom:12px">Ingresá la contraseña de administrador</p>
+    <p style="color:#cbd5e1;font-size:12px;margin-bottom:12px">Ingresá la contraseña de administrador</p>
     <input class="dark-input" id="adminPinInput" type="password" placeholder="Contraseña">
     <button class="btn-primary" onclick="validarAdminDirecto()">Entrar directo al Panel</button>
     <button class="modal-close" onclick="cerrarModalAdmin()">Cerrar</button>
@@ -235,8 +226,8 @@ body{
 const API_URL   = 'https://script.google.com/macros/s/AKfycbx3gVgnFx8VdHkjgX0rIav9kAx4OQ9_I8LL7Kii1dY2mnzwoee59bgU5YgRr26XxS0bfw/exec'  
 const ADMIN_PIN = '1234'                          
 const CONFIG = {
-  //aliasMercadoPago: 'prode.hernan.mp', // ← Tu Alias Real acá
-  //precioInscripcion: '$2000'
+  aliasMercadoPago: 'prode.hernan.mp', 
+  precioInscripcion: '$2000'
 };
 
 const ESCUDOS = {
@@ -244,7 +235,20 @@ const ESCUDOS = {
   'Boca Juniors':  {url:'https://www.thesportsdb.com/images/media/team/badge/ttqtr31421635006.png',e:'💙💛'},
   'Racing':        {url:'https://www.thesportsdb.com/images/media/team/badge/racing-club.png',e:'🔵⚪'},
   'Independiente': {url:'https://www.thesportsdb.com/images/media/team/badge/independiente.png',e:'🔴'},
-  'San Lorenzo':   {url:'https://www.thesportsdb.com/images/media/team/badge/san-lorenzo.png',e:'🔵🔴'}
+  'San Lorenzo':   {url:'https://www.thesportsdb.com/images/media/team/badge/san-lorenzo.png',e:'🔵🔴'},
+  'Huracán':       {url:'https://www.thesportsdb.com/images/media/team/badge/huracan.png',e:'⚪🔴'},
+  'Vélez':         {url:'https://www.thesportsdb.com/images/media/team/badge/velez-sarsfield.png',e:'⚪🔵'},
+  'Lanús':         {url:'https://www.thesportsdb.com/images/media/team/badge/lanus.png',e:'🔴'},
+  'Banfield':      {url:'https://www.thesportsdb.com/images/media/team/badge/banfield.png',e:'🟢⚪'},
+  'Estudiantes':   {url:'https://www.thesportsdb.com/images/media/team/badge/estudiantes.png',e:'🔴⚪'},
+  'Gimnasia':      {url:'https://www.thesportsdb.com/images/media/team/badge/gimnasia.png',e:'🔵⚪'},
+  'Talleres':      {url:'https://www.thesportsdb.com/images/media/team/badge/talleres.png',e:'⚫🔵'},
+  'Belgrano':      {url:'https://www.thesportsdb.com/images/media/team/badge/belgrano.png',e:'🔵⚪'},
+  'Godoy Cruz':    {url:'https://www.thesportsdb.com/images/media/team/badge/godoy-cruz.png',e:'⚫🔵'},
+  'Tigre':         {url:'https://www.thesportsdb.com/images/media/team/badge/tigre.png',e:'🔵🔴'},
+  'Platense':      {url:'https://www.thesportsdb.com/images/media/team/badge/platense.png',e:'⚪🔵'},
+  'Defensa':       {url:'https://www.thesportsdb.com/images/media/team/badge/defensa-justicia.png',e:'🟡🔵'},
+  'Sarmiento':     {url:'https://www.thesportsdb.com/images/media/team/badge/sarmiento.png',e:'🟢⚪'},
 }
 function escudoHtml(eq) {
   const s = ESCUDOS[eq]; return s?.url ? `<img class="escudo-img" src="${s.url}" onerror="this.outerHTML='<span>⚽</span>'">` : `<span>⚽</span>`
@@ -262,20 +266,22 @@ function cerrarModalAdmin() {
   document.getElementById('adminPinInput').value=''
 }
 
-// NUEVO ACCESO: Valida clave y te manda directo a la pestaña de Admin
 function validarAdminDirecto() {
   const pin = document.getElementById('adminPinInput').value.trim()
-  if (pin !== ADMIN_PIN) { showToast('Contraseña incorrecto ❌'); return }
+  if (pin !== ADMIN_PIN) { showToast('Contraseña incorrecta ❌'); return }
   cerrarModalAdmin()
   esAdmin = true
   
-  // Mostrar pestaña y forzar el salto visual directo a ella
   const adminBtn = document.getElementById('adminTabBtn')
   adminBtn.style.display = ''
   document.getElementById('headerSub').textContent = '⚙ Modo administrador activo'
-  showToast('¡Acceso concedido! Bienvenido 👑')
+  showToast('¡Acceso administrador concedido! 👑')
   
-  switchTab('admin', adminBtn)
+  if (usuario) {
+    switchTab('admin', adminBtn)
+  } else {
+    showToast('Admin activo. Logueate para ver el panel.')
+  }
 }
 
 async function doLogin() {
@@ -295,13 +301,13 @@ async function doLogin() {
     ])
     partidos = res[0].partidos || []; pronos = res[1].pronosticos || []; posiciones = res[2].posiciones || []
 
-    // Revisamos si el usuario figura inactivo en el ranking (si tu Sheets lo maneja)
     const tuInfo = posiciones.find(p => p.usuario === usuario)
     if(tuInfo && tuInfo.activo === false) usuarioActivo = false
 
     document.getElementById('loginScreen').classList.remove('active')
     document.getElementById('appScreen').classList.add('active')
     document.getElementById('headerNombre').textContent = '¡Hola, ' + nombre.split(' ')[0] + '!'
+    if(esAdmin) document.getElementById('adminTabBtn').style.display = ''
     renderAll()
   } catch(e) {
     showToast('Error de conexión'); btn.disabled=false
@@ -343,7 +349,6 @@ function renderPartidos() {
     const pr=pronos[p.id], tieneP=pr!==undefined
     const gt=golesTemp[p.id]||{l:tieneP?pr.l:0,v:tieneP?pr.v:0}
     
-    // Control estricto de tiempo (10 minutos antes)
     const fechaP = parseFechaPartido(p.fecha)
     let tiempoAgotado = false
     if (fechaP && (fechaP.getTime() - ahora.getTime()) / 60000 <= 10) {
@@ -360,10 +365,8 @@ function renderPartidos() {
       pron = `<div class="pron-guardado"><span>Tu pronóstico: <strong>${tieneP?pr.l:0}–${tieneP?pr.v:0}</strong></span></div>`
     } else {
       if (tiempoAgotado) {
-        // BLOQUEO 10 MIN ANTES: No deja cambiar nada
         pron = `<div style="text-align:center;color:#64748b;font-size:13px;padding:8px;background:#f3f4f6;border-radius:10px">⏰ Tiempo límite agotado (Cerró 10 min antes)</div>`
       } else {
-        // CONTROL DE PAGO: Si no pagó, botones e inputs totalmente congelados + Mensaje con Alias
         const deshabilitado = !usuarioActivo ? 'disabled style="opacity:0.3; pointer-events:none;"' : ''
         
         pron = `<div class="pron-label">¿Cómo sale el partido?</div>
@@ -382,13 +385,12 @@ function renderPartidos() {
           </div>
           <button class="guardar-btn" id="btn_${p.id}" ${deshabilitado} onclick="guardarPron(${p.id})">${tieneP?'✏️ Actualizar':'✅ Guardar pronóstico'}</button>`
 
-        // Si le falta pagar, le clavamos el cartel acá abajo en el panel principal
         if (!usuarioActivo) {
           pron += `
           <div class="pay-alert">
             🔒 <strong>Pronóstico bloqueado por falta de pago:</strong><br>
             Transferí la inscripción de <strong>${CONFIG.precioInscripcion}</strong> al alias:<br>
-            <strong style="font-size:14px;color:#1a3a5c">${CONFIG.aliasMercadoPago}</strong><br>
+            <strong style="font-size:14px;color:#15803d">${CONFIG.aliasMercadoPago}</strong><br>
             Pasale el comprobante a Hernán para activar tu cuenta.
           </div>`
         }
@@ -399,9 +401,9 @@ function renderPartidos() {
       <div class="card-header"><span style="font-size:12px;color:#94a3b8">${p.fecha}</span></div>
       <div class="card-body">
         <div class="equipos">
-          <div class="equipo">${escudoHtml(p.local)}<div class="equipo-nom">${p.local}</div></div>
+          <div class="equipo"><div class="equipo-nom">${p.local}</div></div>
           <div class="vs-box"><div class="marcador">${esJugado?p.golesL+'–'+p.golesV:'VS'}</div></div>
-          <div class="equipo">${escudoHtml(p.visitante)}<div class="equipo-nom">${p.visitante}</div></div>
+          <div class="equipo"><div class="equipo-nom">${p.visitante}</div></div>
         </div>
         <div class="pron-section">${pron}</div>
       </div>
