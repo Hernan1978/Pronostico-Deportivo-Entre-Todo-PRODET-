@@ -9,473 +9,399 @@
 body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   min-height:100vh;
-  /* Fondo nocturno de estadio generado por código (CSS) - Carga SÍ O SÍ */
-  background: radial-gradient(circle at 50% 30%, #1e3a1e 0%, #0a1f0a 60%, #050f05 100%);
+  background-color: #000;
+  /* Imagen de estadio con luces LED de noche */
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1280');
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed;
 }
 .screen{display:none}.screen.active{display:block}
 
 /* ── LOGIN ── */
-.login-wrap{
-  min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  padding:24px;position:relative;overflow:hidden;
-}
-.login-bg {
-  position: absolute; inset: 0;
-  /* Simulación de reflectores de cancha de noche */
-  background: 
-    linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8)),
-    radial-gradient(circle at 20% 0%, rgba(255,255,255,0.15) 0%, transparent 40%),
-    radial-gradient(circle at 80% 0%, rgba(255,255,255,0.15) 0%, transparent 40%);
-  z-index: 0;
-}
-.login-top{position:relative;z-index:2;text-align:center;margin-bottom:28px}
-.login-top .logo{font-size:52px;line-height:1;margin-bottom:10px}
-.login-top h1{color:#fff;font-size:28px;font-weight:800;letter-spacing:0.04em;text-shadow: 0 2px 10px rgba(0,0,0,0.5)}
-.login-top p{color:rgba(255,255,255,0.6);font-size:13px;margin-top:4px;letter-spacing:0.06em;text-transform:uppercase}
+.login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;}
+.login-top{text-align:center;margin-bottom:28px}
+.login-top h1{color:#fff;font-size:32px;font-weight:800;letter-spacing:2px;text-shadow: 0 4px 15px rgba(0,0,0,0.8)}
+.login-top p{color:#a3e635;font-size:14px;font-weight:600;text-transform:uppercase}
 .login-card{
-  position:relative;z-index:2;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:24px;padding:24px;width:100%;max-width:360px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-}
-.field-label{font-size:11px;color:rgba(255,255,255,0.7);display:block;margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
-.glass-input{
-  width:100%;padding:13px 14px;border-radius:12px;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
   border:1px solid rgba(255,255,255,0.2);
-  background:rgba(0,0,0,0.4);
-  color:#fff;font-size:15px;outline:none;
-  transition:border-color 0.15s;margin-bottom:12px;
+  border-radius:24px;padding:30px;width:100%;max-width:360px;
 }
-.glass-input::placeholder{color:rgba(255,255,255,0.3)}
-.glass-input:focus{border-color:rgba(255,255,255,0.5);background:rgba(0,0,0,0.5)}
+.field-label{font-size:11px;color:#fff;display:block;margin-bottom:5px;font-weight:700;text-transform:uppercase}
+.glass-input{
+  width:100%;padding:14px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.3);
+  background:rgba(0,0,0,0.5);
+  color:#fff;font-size:16px;outline:none;margin-bottom:15px;
+}
 .btn-login{
-  width:100%;padding:14px;border-radius:12px;border:none;
-  background:linear-gradient(135deg,#16a34a,#15803d);
-  color:#fff;font-size:15px;font-weight:700;cursor:pointer;
-  box-shadow:0 4px 20px rgba(22,163,74,0.3);
+  width:100%;padding:15px;border-radius:12px;border:none;
+  background:#16a34a;color:#fff;font-size:16px;font-weight:800;cursor:pointer;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
 }
 
-/* El botón invisible ahora está fijo para toda la pantalla, siempre accesible abajo a la derecha */
+/* BOTON INVISIBLE (ABAJO A LA DERECHA) */
 .admin-trigger{
   position:fixed;bottom:0;right:0;
-  width:60px;height:60px;
+  width:80px;height:80px;
   background:transparent;border:none;cursor:pointer;z-index:9999;
 }
 
-/* Modal contraseña admin */
+/* MODAL DE PIN PARA EL ADMIN */
 .modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.7);
+  position:fixed;inset:0;background:rgba(0,0,0,0.85);
   backdrop-filter:blur(5px);z-index:10000;
   display:flex;align-items:center;justify-content:center;padding:16px;
 }
 .modal-overlay.hidden{display:none}
 .modal-card{
-  background:#142414;border-radius:20px;padding:24px;
-  width:100%;max-width:320px;border:1px solid rgba(255,255,255,0.1);
+  background:#111;border-radius:20px;padding:25px;
+  width:100%;max-width:320px;border:1px solid #16a34a;
   text-align:center;
 }
-.modal-title{color:#fff;font-size:16px;font-weight:700;margin-bottom:6px}
+.modal-title{color:#fff;font-size:18px;font-weight:700;margin-bottom:6px}
 .dark-input{
   width:100%;padding:12px;border-radius:12px;
-  border:1px solid #224422;background:#0a140a;
-  color:#fff;font-size:16px;outline:none;margin-bottom:14px;text-align:center;
+  border:1px solid #222;background:#000;
+  color:#fff;font-size:18px;outline:none;margin-bottom:14px;text-align:center;letter-spacing:4px;
 }
 .modal-close{
-  background:none;border:none;color:#a3e635;
-  font-size:13px;cursor:pointer;margin-top:10px;text-decoration:underline;
+  background:none;border:none;color:#666;
+  font-size:13px;cursor:pointer;margin-top:12px;text-decoration:underline;
 }
 
 /* ── HEADER ── */
-.header{background:linear-gradient(135deg,#142414,#0a140a);padding:16px 16px 12px;position:sticky;top:0;z-index:10}
-.header-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.header h1{color:#fff;font-size:17px;font-weight:600}
-.header-sub{color:rgba(255,255,255,0.5);font-size:12px;margin-top:2px}
-.logout-btn{background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:20px;font-size:12px;cursor:pointer}
-.stats-row{display:flex;gap:8px}
-.stat-pill{flex:1;background:rgba(255,255,255,0.08);border-radius:12px;padding:8px;text-align:center}
-.stat-val{color:#fff;font-size:19px;font-weight:700}
-.stat-lab{color:rgba(255,255,255,0.45);font-size:10px;text-transform:uppercase}
+.header{background:rgba(0,0,0,0.85);padding:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #16a34a}
+.header h1{color:#fff;font-size:18px}
+.stats-row{display:flex;gap:8px;margin-top:10px}
+.stat-pill{flex:1;background:rgba(22,163,74,0.2);border-radius:12px;padding:8px;text-align:center;border:1px solid rgba(22,163,74,0.3)}
+.stat-val{color:#fff;font-size:20px;font-weight:700}
+.stat-lab{color:#a3e635;font-size:10px;text-transform:uppercase}
 
 /* ── TABS ── */
-.tabs{display:flex;background:#fff;border-bottom:1px solid #eee;position:sticky;top:112px;z-index:9}
-.tab{flex:1;padding:12px 8px;font-size:13px;border:none;background:transparent;color:#999;cursor:pointer;border-bottom:2.5px solid transparent;font-weight:500}
-.tab.active{color:#15803d;border-bottom-color:#15803d}
-.content{padding:12px 12px 80px}
+.tabs{display:flex;background:#fff;position:sticky;top:105px;z-index:9}
+.tab{flex:1;padding:15px;font-size:14px;border:none;background:transparent;color:#666;font-weight:700}
+.tab.active{color:#16a34a;border-bottom:3px solid #16a34a}
 
-/* ── CARDS ── */
-.card{background:rgba(255,255,255,0.95);border-radius:16px;margin-bottom:10px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
-.card-header{padding:10px 14px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center}
-.card-body{padding:14px}
-.badge{font-size:11px;padding:3px 9px;border-radius:99px;font-weight:600}
-.b-green{background:#f0fdf4;color:#16a34a}
-.b-blue{background:#eff6ff;color:#2563eb}
-.b-yellow{background:#fffbeb;color:#b45309}
-.b-gray{background:#f3f4f6;color:#6b7280}
-.b-red{background:#fef2f2;color:#dc2626}
-
-/* ── EQUIPOS ── */
-.equipos{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
+/* ── CARDS PARTIDOS ── */
+.content{padding:12px 12px 100px}
+.card{background:#fff;border-radius:18px;margin-bottom:15px;box-shadow:0 8px 20px rgba(0,0,0,0.2);overflow:hidden}
+.card-header{padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;font-weight:600;border-bottom:1px solid #eee}
+.card-body{padding:15px}
+.equipos{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
 .equipo{flex:1;text-align:center}
-.escudo-img{width:48px;height:48px;object-fit:contain;margin:0 auto 5px;display:block}
-.equipo-nom{font-size:12px;font-weight:600;color:#1e293b}
-.vs-box{flex-shrink:0;text-align:center}
-.marcador{font-size:24px;font-weight:800;color:#15803d}
-.marcador-sub{font-size:10px;color:#94a3b8}
+.escudo-img{width:50px;height:50px;object-fit:contain;margin-bottom:5px}
+.equipo-nom{font-size:13px;font-weight:700;color:#1e293b}
+.vs-box{font-size:22px;font-weight:900;color:#16a34a;padding:0 10px}
 
-/* ── PRONÓSTICOS ── */
-.pron-section{border-top:1px solid #e5e7eb;padding-top:12px}
-.pron-label{font-size:12px;color:#94a3b8;text-align:center;margin-bottom:10px}
-.pron-controles{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px}
-.gol-group{display:flex;align-items:center;gap:8px}
-.gol-btn{width:36px;height:36px;border-radius:10px;border:1.5px solid #cbd5e1;background:#f8fafc;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.gol-num{width:44px;height:44px;border-radius:12px;background:#15803d;color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.guardar-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#15803d;color:#fff;font-size:14px;font-weight:600;cursor:pointer}
-.pron-guardado{display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border-radius:10px;padding:10px 12px}
+/* PRONOSTICOS */
+.pron-label{font-size:11px;color:#94a3b8;text-align:center;margin-bottom:10px;text-transform:uppercase}
+.pron-controles{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:12px}
+.gol-num{width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.gol-btn{width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;background:#fff;font-size:20px;font-weight:700;cursor:pointer}
+.guardar-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#16a34a;color:#fff;font-weight:700;cursor:pointer}
 
-/* Cartel de Bloqueo por Pago en Pantalla Principal */
-.pay-alert{
-  background:#fffbeb;border:1px solid #fde68a;border-radius:12px;
-  padding:12px;margin-top:10px;font-size:12px;color:#b45309;line-height:1.4;text-align:center
-}
+/* ALERTA DE PAGO */
+.pay-alert{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;margin-top:10px;font-size:12px;color:#b45309;text-align:center}
 
-/* ── POSICIONES Y ADMIN ── */
-.pos-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #e5e7eb}
-.pos-row.yo{background:#f0fdf4}
-.pos-num{font-size:15px;font-weight:700;width:22px;text-align:center;color:#94a3b8}
-.pos-nombre{flex:1;font-size:14px;font-weight:500}
-.pos-pts{font-size:16px;font-weight:700;color:#15803d}
-.partido-admin{background:#fff;border-radius:12px;padding:12px;margin-bottom:8px}
-.num-input{width:50px;padding:8px;border-radius:10px;border:1.5px solid #cbd5e1;text-align:center}
-.admin-btn{padding:8px 14px;border-radius:10px;border:none;background:#15803d;color:#fff;font-size:13px;cursor:pointer}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;z-index:20000;opacity:0;transition:opacity 0.2s;white-space:nowrap}
+/* POSICIONES */
+.pos-row{display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid #eee}
+.pos-num{width:30px;font-weight:800;color:#16a34a}
+.pos-nombre{flex:1;font-weight:600}
+.pos-pts{font-weight:800;font-size:16px}
+
+/* ADMIN */
+.admin-section{background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+.admin-section b{font-size:15px;color:#1e293b}
+.num-input{width:55px;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:center;margin-right:5px;font-size:16px;font-weight:700}
+.admin-btn{background:#16a34a;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;z-index:20000;opacity:0;transition:0.3s;pointer-events:none}
 .toast.show{opacity:1}
-.btn-primary{width:100%;padding:12px;border-radius:12px;border:none;background:#15803d;color:#fff;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
 
 <div id="loginScreen" class="screen active">
   <div class="login-wrap">
-    <div class="login-bg"></div>
-
     <div class="login-top">
-      <div class="logo">⚽</div>
+      <div style="font-size:60px">⚽</div>
       <h1>PRODE 2026</h1>
       <p>Torneo Argentino</p>
     </div>
-
     <div class="login-card">
-      <label class="field-label">Nombre completo</label>
-      <input class="glass-input" id="loginNombre" placeholder="Ej: Juan Pérez" maxlength="40">
-
+      <label class="field-label">Nombre y Apellido</label>
+      <input class="glass-input" id="loginNombre" placeholder="Ej: Hernán Pérez">
       <label class="field-label">Email</label>
-      <input class="glass-input" id="loginEmail" type="email" placeholder="juan@email.com">
-
-      <label class="field-label">Contraseña</label>
-      <input class="glass-input" id="loginPass" type="password" placeholder="Mínimo 6 caracteres" maxlength="40">
-
-      <button class="btn-login" id="loginBtn" onclick="doLogin()">Entrar al Prode →</button>
+      <input class="glass-input" id="loginEmail" type="email" placeholder="ejemplo@correo.com">
+      <button class="btn-login" id="loginBtn" onclick="doLogin()">Entrar a Jugar →</button>
     </div>
   </div>
 </div>
 
 <div id="appScreen" class="screen">
   <div class="header">
-    <div class="header-row">
-      <div>
-        <h1 id="headerNombre">Hola!</h1>
-        <div class="header-sub" id="headerSub">Cargá tus pronósticos</div>
-      </div>
-      <button class="logout-btn" onclick="logout()">Salir</button>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h1 id="headerNombre">¡Hola, Admin!</h1>
+      <button onclick="location.reload()" style="background:none;border:none;color:#a3e635;font-weight:700">Salir</button>
     </div>
     <div class="stats-row" id="statsRow">
-      <div class="stat-pill"><div class="stat-val">–</div><div class="stat-lab">Puntos</div></div>
-      <div class="stat-pill"><div class="stat-val">–</div><div class="stat-lab">Sin cargar</div></div>
+      <div class="stat-pill"><div class="stat-val" id="statPts">0</div><div class="stat-lab">Puntos</div></div>
+      <div class="stat-pill"><div class="stat-val" id="statPend">0</div><div class="stat-lab">Pendientes</div></div>
     </div>
   </div>
 
   <div class="tabs">
-    <button class="tab active" id="tabBtnPartidos" onclick="switchTab('partidos',this)">Partidos</button>
-    <button class="tab" onclick="switchTab('posiciones',this)">Posiciones</button>
-    <button class="tab" id="adminTabBtn" onclick="switchTab('admin',this)" style="display:none">⚙ Admin</button>
+    <button class="tab active" id="tabPartidosBtn" onclick="switchTab('partidos',this)">Partidos</button>
+    <button class="tab" id="tabPosicionesBtn" onclick="switchTab('posiciones',this)">⚽ Posiciones</button>
+    <button class="tab" id="adminTabBtn" onclick="switchTab('admin',this)" style="display:none">⚙ ADMIN</button>
   </div>
 
-  <div id="tabPartidos" class="content"><div class="loading">Cargando...</div></div>
-  <div id="tabPosiciones" class="content" style="display:none"><div class="loading">Cargando...</div></div>
+  <div id="tabPartidos" class="content"></div>
+  <div id="tabPosiciones" class="content" style="display:none"></div>
   <div id="tabAdmin" class="content" style="display:none"></div>
 </div>
 
-<button class="admin-trigger" onclick="abrirModalAdmin()"></button>
+<button class="admin-trigger" onclick="abrirModalPin()"></button>
 
-<div class="modal-overlay hidden" id="adminModal">
+<div class="modal-overlay hidden" id="pinModal">
   <div class="modal-card">
-    <div class="modal-title">🔐 Panel de Control</div>
-    <p style="color:#cbd5e1;font-size:12px;margin-bottom:12px">Ingresá la contraseña de administrador</p>
-    <input class="dark-input" id="adminPinInput" type="password" placeholder="Contraseña">
-    <button class="btn-primary" onclick="validarAdminDirecto()">Entrar directo al Panel</button>
-    <button class="modal-close" onclick="cerrarModalAdmin()">Cerrar</button>
+    <div class="modal-title">🔓 Panel de Control</div>
+    <p style="color:#666;font-size:13px;margin-bottom:15px">Ingresá el PIN de administrador</p>
+    <input class="dark-input" id="inputPin" type="password" placeholder="••••" maxlength="4">
+    <button class="btn-login" style="background:#16a34a" onclick="verificarPinAdmin()">Ingresar Directo</button>
+    <button class="modal-close" onclick="cerrarModalPin()">Cancelar</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const API_URL   = 'https://script.google.com/macros/s/AKfycbx3gVgnFx8VdHkjgX0rIav9kAx4OQ9_I8LL7Kii1dY2mnzwoee59bgU5YgRr26XxS0bfw/exec'  
-const ADMIN_PIN = '1234'                          
-const CONFIG = {
-  aliasMercadoPago: 'prode.hernan.mp', 
-  precioInscripcion: '$2000'
-};
+const API_URL = 'https://script.google.com/macros/s/AKfycbx3gVgnFx8VdHkjgX0rIav9kAx4OQ9_I8LL7Kii1dY2mnzwoee59bgU5YgRr26XxS0bfw/exec'; 
+const ADMIN_PIN = '1234'; // ← Tu PIN de acceso rápido
+const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
 
 const ESCUDOS = {
-  'River Plate':   {url:'https://www.thesportsdb.com/images/media/team/badge/xvuwtw1421635011.png',e:'🔴⚪'},
-  'Boca Juniors':  {url:'https://www.thesportsdb.com/images/media/team/badge/ttqtr31421635006.png',e:'💙💛'},
-  'Racing':        {url:'https://www.thesportsdb.com/images/media/team/badge/racing-club.png',e:'🔵⚪'},
-  'Independiente': {url:'https://www.thesportsdb.com/images/media/team/badge/independiente.png',e:'🔴'},
-  'San Lorenzo':   {url:'https://www.thesportsdb.com/images/media/team/badge/san-lorenzo.png',e:'🔵🔴'},
-  'Huracán':       {url:'https://www.thesportsdb.com/images/media/team/badge/huracan.png',e:'⚪🔴'},
-  'Vélez':         {url:'https://www.thesportsdb.com/images/media/team/badge/velez-sarsfield.png',e:'⚪🔵'},
-  'Lanús':         {url:'https://www.thesportsdb.com/images/media/team/badge/lanus.png',e:'🔴'},
-  'Banfield':      {url:'https://www.thesportsdb.com/images/media/team/badge/banfield.png',e:'🟢⚪'},
-  'Estudiantes':   {url:'https://www.thesportsdb.com/images/media/team/badge/estudiantes.png',e:'🔴⚪'},
-  'Gimnasia':      {url:'https://www.thesportsdb.com/images/media/team/badge/gimnasia.png',e:'🔵⚪'},
-  'Talleres':      {url:'https://www.thesportsdb.com/images/media/team/badge/talleres.png',e:'⚫🔵'},
-  'Belgrano':      {url:'https://www.thesportsdb.com/images/media/team/badge/belgrano.png',e:'🔵⚪'},
-  'Godoy Cruz':    {url:'https://www.thesportsdb.com/images/media/team/badge/godoy-cruz.png',e:'⚫🔵'},
-  'Tigre':         {url:'https://www.thesportsdb.com/images/media/team/badge/tigre.png',e:'🔵🔴'},
-  'Platense':      {url:'https://www.thesportsdb.com/images/media/team/badge/platense.png',e:'⚪🔵'},
-  'Defensa':       {url:'https://www.thesportsdb.com/images/media/team/badge/defensa-justicia.png',e:'🟡🔵'},
-  'Sarmiento':     {url:'https://www.thesportsdb.com/images/media/team/badge/sarmiento.png',e:'🟢⚪'},
+  'River Plate': 'https://www.thesportsdb.com/images/media/team/badge/xvuwtw1421635011.png',
+  'Boca Juniors': 'https://www.thesportsdb.com/images/media/team/badge/ttqtr31421635006.png',
+  'Racing': 'https://www.thesportsdb.com/images/media/team/badge/racing-club.png',
+  'Independiente': 'https://www.thesportsdb.com/images/media/team/badge/independiente.png',
+  'San Lorenzo': 'https://www.thesportsdb.com/images/media/team/badge/san-lorenzo.png',
+  'Huracán': 'https://www.thesportsdb.com/images/media/team/badge/huracan.png',
+  'Vélez': 'https://www.thesportsdb.com/images/media/team/badge/velez-sarsfield.png',
+  'Talleres': 'https://www.thesportsdb.com/images/media/team/badge/talleres.png',
+  'Belgrano': 'https://www.thesportsdb.com/images/media/team/badge/belgrano.png',
+  'Estudiantes': 'https://www.thesportsdb.com/images/media/team/badge/estudiantes.png',
+  'Gimnasia': 'https://www.thesportsdb.com/images/media/team/badge/gimnasia.png',
+  'Lanús': 'https://www.thesportsdb.com/images/media/team/badge/lanus.png',
+  'Rosario Central': 'https://www.thesportsdb.com/images/media/team/badge/rosario-central.png',
+  'Newells': 'https://www.thesportsdb.com/images/media/team/badge/newells-old-boys.png',
+  'Banfield': 'https://www.thesportsdb.com/images/media/team/badge/banfield.png',
+  'Godoy Cruz': 'https://www.thesportsdb.com/images/media/team/badge/godoy-cruz.png',
+  'Argentinos Jrs': 'https://www.thesportsdb.com/images/media/team/badge/argentinos-juniors.png',
+  'Union': 'https://www.thesportsdb.com/images/media/team/badge/union-santa-fe.png',
+  'Colon': 'https://www.thesportsdb.com/images/media/team/badge/colon-santa-fe.png',
+  'Tigre': 'https://www.thesportsdb.com/images/media/team/badge/tigre.png',
+  'Platense': 'https://www.thesportsdb.com/images/media/team/badge/platense.png',
+  'Defensa y Justicia': 'https://www.thesportsdb.com/images/media/team/badge/defensa-justicia.png'
+};
+
+let usuario=null, email=null, esAdmin=false, usuarioActivo=true;
+let partidos=[], pronos={}, posiciones=[], golesTemp={};
+
+// MANEJO DEL MODAL DE SEGURIDAD
+function abrirModalPin() {
+  document.getElementById('pinModal').classList.remove('hidden');
+  document.getElementById('inputPin').focus();
 }
-function escudoHtml(eq) {
-  const s = ESCUDOS[eq]; return s?.url ? `<img class="escudo-img" src="${s.url}" onerror="this.outerHTML='<span>⚽</span>'">` : `<span>⚽</span>`
+function cerrarModalPin() {
+  document.getElementById('pinModal').classList.add('hidden');
+  document.getElementById('inputPin').value = '';
 }
 
-let usuario=null, email=null, esAdmin=false, usuarioActivo=true
-let partidos=[], pronos={}, posiciones=[], golesTemp={}, usuarios=[]
-
-function abrirModalAdmin() {
-  document.getElementById('adminModal').classList.remove('hidden')
-  document.getElementById('adminPinInput').focus()
-}
-function cerrarModalAdmin() {
-  document.getElementById('adminModal').classList.add('hidden')
-  document.getElementById('adminPinInput').value=''
-}
-
-function validarAdminDirecto() {
-  const pin = document.getElementById('adminPinInput').value.trim()
-  if (pin !== ADMIN_PIN) { showToast('Contraseña incorrecta ❌'); return }
-  cerrarModalAdmin()
-  esAdmin = true
+// NUEVA VALIDACIÓN: Salta directo al Panel de Admin cargando la data de fondo
+async function verificarPinAdmin() {
+  const pin = document.getElementById('inputPin').value.trim();
+  if (pin !== ADMIN_PIN) { showToast('PIN Incorrecto ❌'); return; }
   
-  const adminBtn = document.getElementById('adminTabBtn')
-  adminBtn.style.display = ''
-  document.getElementById('headerSub').textContent = '⚙ Modo administrador activo'
-  showToast('¡Acceso administrador concedido! 👑')
+  cerrarModalPin();
+  esAdmin = true;
+  usuario = "Administrador"; // Nombre genérico para no forzar login individual
   
-  if (usuario) {
-    switchTab('admin', adminBtn)
-  } else {
-    showToast('Admin activo. Logueate para ver el panel.')
+  showToast('Conectando Panel de Control... 👑');
+
+  try {
+    // Trae directo la info de partidos para poder editarlos al toque
+    const res = await Promise.all([
+      fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),
+      fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())
+    ]);
+    partidos = res[0].partidos; posiciones = res[1].posiciones;
+
+    // Saltamos todas las pantallas de login y vamos directo adentro
+    document.getElementById('loginScreen').classList.remove('active');
+    document.getElementById('appScreen').classList.add('active');
+    document.getElementById('headerNombre').textContent = '¡Hola, Hernán! (Admin)';
+    
+    const btn = document.getElementById('adminTabBtn');
+    btn.style.display = 'block';
+    
+    renderAll();
+    switchTab('admin', btn); // Te posiciona directo en la pestaña de carga
+  } catch(e) {
+    showToast('Error al conectar con Sheets');
   }
 }
 
 async function doLogin() {
-  const nombre = document.getElementById('loginNombre').value.trim()
-  const mail   = document.getElementById('loginEmail').value.trim()
-  if (!nombre || !mail.includes('@')) { showToast('Datos inválidos'); return }
-
-  usuario = nombre; email = mail
-  const btn = document.getElementById('loginBtn'); btn.disabled=true
+  const n = document.getElementById('loginNombre').value.trim();
+  const m = document.getElementById('loginEmail').value.trim();
+  if(!n || !m.includes('@')) { showToast('Completá nombre y email'); return; }
+  usuario = n; email = m;
+  document.getElementById('loginBtn').disabled = true;
+  document.getElementById('loginBtn').textContent = 'Conectando...';
 
   try {
-    await fetch(API_URL, {method:'POST', body:JSON.stringify({accion:'registrarUsuario',usuario,email})})
+    await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'registrarUsuario',usuario,email})});
     const res = await Promise.all([
       fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),
       fetch(API_URL+'?accion=getPronosticos&usuario='+usuario).then(r=>r.json()),
       fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())
-    ])
-    partidos = res[0].partidos || []; pronos = res[1].pronosticos || []; posiciones = res[2].posiciones || []
+    ]);
+    partidos = res[0].partidos; pronos = res[1].pronosticos; posiciones = res[2].posiciones;
+    
+    const info = posiciones.find(p=>p.usuario===usuario);
+    if(info && info.activo === false) usuarioActivo = false;
 
-    const tuInfo = posiciones.find(p => p.usuario === usuario)
-    if(tuInfo && tuInfo.activo === false) usuarioActivo = false
-
-    document.getElementById('loginScreen').classList.remove('active')
-    document.getElementById('appScreen').classList.add('active')
-    document.getElementById('headerNombre').textContent = '¡Hola, ' + nombre.split(' ')[0] + '!'
-    if(esAdmin) document.getElementById('adminTabBtn').style.display = ''
-    renderAll()
-  } catch(e) {
-    showToast('Error de conexión'); btn.disabled=false
-  }
+    document.getElementById('loginScreen').classList.remove('active');
+    document.getElementById('appScreen').classList.add('active');
+    document.getElementById('headerNombre').textContent = '¡Hola, '+n.split(' ')[0]+'!';
+    renderAll();
+  } catch(e) { showToast('Error al conectar con Sheets'); document.getElementById('loginBtn').disabled=false; }
 }
 
-function logout() {
-  usuario=null; esAdmin=false; usuarioActivo=true
-  document.getElementById('adminTabBtn').style.display='none'
-  document.getElementById('appScreen').classList.remove('active')
-  document.getElementById('loginScreen').classList.add('active')
-}
-
-function switchTab(tab,btn) {
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'))
-  btn.classList.add('active')
-  document.getElementById('tabPartidos').style.display   = tab==='partidos'   ? 'block':'none'
-  document.getElementById('tabPosiciones').style.display = tab==='posiciones' ? 'block':'none'
-  document.getElementById('tabAdmin').style.display      = tab==='admin'      ? 'block':'none'
-  if (tab==='admin') renderAdmin()
-}
-
-function parseFechaPartido(fechaStr) {
-  try {
-    const partes = fechaStr.split('·'); if(partes.length < 2) return null
-    const diaMes = partes[0].trim().split(' ')[1]
-    const [dia, mes] = diaMes.split('/')
-    const [hora, min] = partes[1].trim().split(':')
-    return new Date(2026, parseInt(mes)-1, parseInt(dia), parseInt(hora), parseInt(min))
-  } catch(e) { return null }
+function switchTab(t,btn) {
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tabPartidos').style.display = t==='partidos'?'block':'none';
+  document.getElementById('tabPosiciones').style.display = t==='posiciones'?'block':'none';
+  document.getElementById('tabAdmin').style.display = t==='admin'?'block':'none';
+  if(t==='admin') renderAdmin();
 }
 
 function renderPartidos() {
-  if (!partidos.length) { document.getElementById('tabPartidos').innerHTML='<div class="empty">No hay partidos</div>'; return }
-  let html=''
-  const ahora = new Date()
-
+  let html=''; const ahora = new Date();
   partidos.forEach(p=>{
-    const pr=pronos[p.id], tieneP=pr!==undefined
-    const gt=golesTemp[p.id]||{l:tieneP?pr.l:0,v:tieneP?pr.v:0}
+    const pr=pronos[p.id], tiene=pr!==undefined;
+    const gt=golesTemp[p.id]||{l:tiene?pr.l:0, v:tiene?pr.v:0};
     
-    const fechaP = parseFechaPartido(p.fecha)
-    let tiempoAgotado = false
-    if (fechaP && (fechaP.getTime() - ahora.getTime()) / 60000 <= 10) {
-      tiempoAgotado = true
+    let cerrado = false;
+    if(p.fecha.includes('/')) {
+      const parts = p.fecha.split('·');
+      const dm = parts[0].trim().split(' ')[1].split('/');
+      const hm = parts[1].trim().split(':');
+      const fPart = new Date(2026, dm[1]-1, dm[0], hm[0], hm[1]);
+      if((fPart - ahora)/60000 <= 10) cerrado = true;
     }
 
-    const esSuspendido = p.jugado === 'Suspendido'
-    const esJugado = p.jugado === 'Jugado' || p.jugado === true || p.jugado === 'TRUE'
+    const suspendido = p.jugado === 'Suspendido';
+    const jugado = p.jugado === 'Jugado' || p.jugado === true || p.jugado === 'TRUE';
 
-    let pron=''
-    if (esSuspendido) {
-      pron = `<div style="text-align:center;color:#dc2626;font-size:13px;font-weight:600">⚠️ Partido Suspendido</div>`
-    } else if (esJugado) {
-      pron = `<div class="pron-guardado"><span>Tu pronóstico: <strong>${tieneP?pr.l:0}–${tieneP?pr.v:0}</strong></span></div>`
-    } else {
-      if (tiempoAgotado) {
-        pron = `<div style="text-align:center;color:#64748b;font-size:13px;padding:8px;background:#f3f4f6;border-radius:10px">⏰ Tiempo límite agotado (Cerró 10 min antes)</div>`
-      } else {
-        const deshabilitado = !usuarioActivo ? 'disabled style="opacity:0.3; pointer-events:none;"' : ''
-        
-        pron = `<div class="pron-label">¿Cómo sale el partido?</div>
-          <div class="pron-controles">
-            <div class="gol-group">
-              <button class="gol-btn" ${deshabilitado} onclick="cambiarGol(${p.id},'l',-1)">−</button>
-              <div class="gol-num" id="gl_${p.id}">${gt.l}</div>
-              <button class="gol-btn" ${deshabilitado} onclick="cambiarGol(${p.id},'l',1)">+</button>
+    let ui='';
+    if(suspendido) ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
+    else if(jugado) ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
+    else if(cerrado) ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
+    else {
+      const block = !usuarioActivo ? 'disabled style="opacity:0.5"' : '';
+      ui = `
+        <div class="pron-controles">
+          <button class="gol-btn" ${block} onclick="edit(${p.id},'l',-1)">-</button>
+          <div class="gol-num" id="l_${p.id}">${gt.l}</div>
+          <button class="gol-btn" ${block} onclick="edit(${p.id},'l',1)">+</button>
+          <span style="font-weight:900;padding:0 10px"> - </span>
+          <button class="gol-btn" ${block} onclick="edit(${p.id},'v',-1)">-</button>
+          <div class="gol-num" id="v_${p.id}">${gt.v}</div>
+          <button class="gol-btn" ${block} onclick="edit(${p.id},'v',1)">+</button>
+        </div>
+        <button class="guardar-btn" ${block} onclick="save(${p.id})">GUARDAR PRONOSTICO</button>
+      `;
+      if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
+    }
+
+    html += `
+      <div class="card">
+        <div class="card-header">${p.fecha}</div>
+        <div class="card-body">
+          <div class="equipos">
+            <div class="equipo">
+              <img src="${ESCUDOS[p.local]||''}" class="escudo-img" onerror="this.style.display='none'">
+              <div class="equipo-nom">${p.local}</div>
             </div>
-            <div class="gol-sep" style="padding:0 6px">–</div>
-            <div class="gol-group">
-              <button class="gol-btn" ${deshabilitado} onclick="cambiarGol(${p.id},'v',-1)">−</button>
-              <div class="gol-num" id="gv_${p.id}">${gt.v}</div>
-              <button class="gol-btn" ${deshabilitado} onclick="cambiarGol(${p.id},'v',1)">+</button>
+            <div class="vs-box">${jugado?p.golesL+' - '+p.golesV:'VS'}</div>
+            <div class="equipo">
+              <img src="${ESCUDOS[p.visitante]||''}" class="escudo-img" onerror="this.style.display='none'">
+              <div class="equipo-nom">${p.visitante}</div>
             </div>
           </div>
-          <button class="guardar-btn" id="btn_${p.id}" ${deshabilitado} onclick="guardarPron(${p.id})">${tieneP?'✏️ Actualizar':'✅ Guardar pronóstico'}</button>`
-
-        if (!usuarioActivo) {
-          pron += `
-          <div class="pay-alert">
-            🔒 <strong>Pronóstico bloqueado por falta de pago:</strong><br>
-            Transferí la inscripción de <strong>${CONFIG.precioInscripcion}</strong> al alias:<br>
-            <strong style="font-size:14px;color:#15803d">${CONFIG.aliasMercadoPago}</strong><br>
-            Pasale el comprobante a Hernán para activar tu cuenta.
-          </div>`
-        }
-      }
-    }
-
-    html+=`<div class="card">
-      <div class="card-header"><span style="font-size:12px;color:#94a3b8">${p.fecha}</span></div>
-      <div class="card-body">
-        <div class="equipos">
-          <div class="equipo"><div class="equipo-nom">${p.local}</div></div>
-          <div class="vs-box"><div class="marcador">${esJugado?p.golesL+'–'+p.golesV:'VS'}</div></div>
-          <div class="equipo"><div class="equipo-nom">${p.visitante}</div></div>
+          ${ui}
         </div>
-        <div class="pron-section">${pron}</div>
-      </div>
-    </div>`
-  })
-  document.getElementById('tabPartidos').innerHTML=html
+      </div>`;
+  });
+  document.getElementById('tabPartidos').innerHTML = html || '<p style="color:#fff;text-align:center">No hay partidos cargados</p>';
 }
 
-function cambiarGol(pid,lado,delta) {
-  if(!golesTemp[pid]){const pr=pronos[pid];golesTemp[pid]={l:pr?pr.l:0,v:pr?pr.v:0}}
-  golesTemp[pid][lado]=Math.max(0,golesTemp[pid][lado]+delta)
-  document.getElementById((lado==='l'?'gl_':'gv_')+pid).textContent=golesTemp[pid][lado]
+function edit(id,l,d) {
+  if(!golesTemp[id]) { const p=pronos[id]; golesTemp[id]={l:p?p.l:0, v:p?p.v:0} }
+  golesTemp[id][l] = Math.max(0, golesTemp[id][l]+d);
+  document.getElementById((l==='l'?'l_':'v_')+id).textContent = golesTemp[id][l];
 }
 
-async function guardarPron(pid) {
-  const {l,v}=golesTemp[pid]||{l:0,v:0}
-  try {
-    await fetch(API_URL,{method:'POST',body:JSON.stringify({accion:'guardarPronostico',usuario,partidoId:pid,golesL:l,golesV:v})})
-    pronos[pid]={l,v}
-    showToast('¡Guardado! 🎯')
-    renderAll()
-  } catch(e){ showToast('Error al guardar') }
+async function save(id) {
+  const g = golesTemp[id] || {l:0,v:0};
+  showToast('Guardando...');
+  await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'guardarPronostico',usuario,partidoId:id,golesL:g.l,golesV:g.v})});
+  pronos[id] = {l:g.l, v:g.v};
+  showToast('¡Guardado con éxito! 🎯');
+  renderAll();
 }
 
-function renderStats() {
-  let pts=0; Object.values(pronos).forEach(p=>pts+=(p.puntos||0))
-  document.getElementById('statsRow').innerHTML=`
-    <div class="stat-pill"><div class="stat-val">${pts}</div><div class="stat-lab">Puntos</div></div>
-    <div class="stat-pill"><div class="stat-val">${partidos.filter(p=>!p.jugado&&!pronos[p.id]).length}</div><div class="stat-lab">Sin cargar</div></div>`
-}
 function renderPosiciones() {
-  let h=''; posiciones.forEach((u,i)=>h+=`<div class="pos-row">
-    <div class="pos-num">${i+1}</div><div class="pos-nombre">${u.usuario}</div><div class="pos-pts">${u.puntos} pts</div>
-  </div>`); document.getElementById('tabPosiciones').innerHTML=`<div class="card">${h||'Sin datos'}</div>`
+  let h=''; posiciones.forEach((p,i)=>h+=`<div class="pos-row"><div class="pos-num">${i+1}</div><div class="pos-nombre">${p.usuario}</div><div class="pos-pts">${p.puntos} pts</div></div>`);
+  document.getElementById('tabPosiciones').innerHTML = `<div class="card">${h||'Sin datos'}</div>`;
 }
 
 function renderAdmin() {
   let h=partidos.map(p=>`
-    <div class="partido-admin">
-      <div style="font-size:13px;font-weight:600">${p.local} vs ${p.visitante}</div>
-      <div style="margin-top:6px;display:flex;gap:6px;align-items:center">
-        <input class="num-input" id="rl_${p.id}" type="number" placeholder="L">
-        <input class="num-input" id="rv_${p.id}" type="number" placeholder="V">
-        <button class="admin-btn" onclick="cargarResultadoAdmin(${p.id})">✓ Cargar</button>
+    <div class="admin-section">
+      <b>${p.local} vs ${p.visitante}</b>
+      <div style="margin-top:10px;display:flex;align-items:center;">
+        <input class="num-input" id="al_${p.id}" type="number" placeholder="L" value="${p.golesL||0}">
+        <span style="font-weight:bold;margin-right:5px">-</span>
+        <input class="num-input" id="av_${p.id}" type="number" placeholder="V" value="${p.golesV||0}">
+        <button class="admin-btn" onclick="setRes(${p.id})">CARGAR FINAL</button>
       </div>
-    </div>`).join('')
-  document.getElementById('tabAdmin').innerHTML=`<div class="admin-section"><h3>Cargar Resultados Reales</h3>${h}</div>`
+    </div>`).join('');
+  document.getElementById('tabAdmin').innerHTML = h || '<p style="color:#fff">No hay partidos para administrar</p>';
 }
 
-async function cargarResultadoAdmin(id) {
-  const l=document.getElementById('rl_'+id).value, v=document.getElementById('rv_'+id).value
-  if(!l||!v) return
-  try {
-    await fetch(API_URL,{method:'POST',body:JSON.stringify({accion:'cargarResultado',partidoId:id,golesL:parseInt(l),golesV:parseInt(v)})})
-    showToast('Resultado enviado 🚀'); recargarDatos()
-  } catch(e){ showToast('Error') }
+async function setRes(id) {
+  const l=document.getElementById('al_'+id).value, v=document.getElementById('av_'+id).value;
+  if(!l || !v) return;
+  showToast('Cargando resultado...');
+  await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'cargarResultado',partidoId:id,golesL:parseInt(l),golesV:parseInt(v)})});
+  showToast('Resultado guardado ✅');
 }
 
-async function recargarDatos() {
-  const res = await Promise.all([
-    fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),
-    fetch(API_URL+'?accion=getPronosticos&usuario='+usuario).then(r=>r.json()),
-    fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())
-  ])
-  partidos = res[0].partidos||[]; pronos = res[1].pronosticos||[]; posiciones = res[2].posiciones||[]
-  const tuInfo = posiciones.find(p => p.usuario === usuario)
-  if(tuInfo && tuInfo.activo === false) usuarioActivo = false; else usuarioActivo = true
-  renderAll()
+function renderAll() { 
+  renderPartidos(); 
+  renderPosiciones(); 
+  document.getElementById('statPts').textContent = Object.values(pronos).reduce((a,b)=>a+(b.puntos||0),0);
+  document.getElementById('statPend').textContent = partidos.filter(p=>!p.jugado && !pronos[p.id]).length;
 }
 
-function renderAll(){ renderStats(); renderPartidos(); renderPosiciones(); if(esAdmin) renderAdmin() }
-function showToast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000) }
+function showToast(m) { const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
 </script>
 </body>
 </html>
