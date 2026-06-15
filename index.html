@@ -200,7 +200,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </head>
 <body>
 
-<!-- ══ LOGIN ══════════════════════════════════════════════════════════════════ -->
+<body>
+
 <div id="loginScreen" class="screen active">
   <div class="login-wrap">
     <div class="login-bg"></div>
@@ -224,32 +225,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
       <button class="btn-login" id="loginBtn" onclick="doLogin()">Entrar al Prode →</button>
 
-      <div class="divider"><span>¿Ya tenés cuenta?</span></div>
-      <div style="text-align:center">
-        <button class="link-btn" onclick="showToast('Login con cuenta existente — próximamente 🔒')">
-          Iniciar sesión
+      <div class="divider"><span>¿Sos el Administrador?</span></div>
+      
+      <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1)">
+        <label class="field-label" style="margin-bottom: 4px;">PIN de Admin</label>
+        <input class="glass-input" id="adminPinDirecto" type="password" placeholder="Ej: 1234" maxlength="20" style="margin-bottom: 8px; padding: 10px;">
+        <button class="btn-login" onclick="validarAdminDirecto()" style="background: linear-gradient(135deg,#1e293b,#0f172a); box-shadow: none; padding: 10px; font-size: 13px;">
+          🔑 Entrar como Admin
         </button>
       </div>
+
     </div>
   </div>
-
-  <!-- Botón admin invisible: esquina inferior derecha -->
-  <button class="admin-trigger" onclick="abrirModalAdmin()" aria-hidden="true" tabindex="-1"></button>
 </div>
 
-<!-- Modal admin oculto -->
-<div class="modal-overlay hidden" id="adminModal">
-  <div class="modal-card">
-    <div class="modal-title">🔐 Acceso administrador</div>
-    <div class="modal-sub">Ingresá el PIN para continuar</div>
-    <input class="dark-input" id="adminPinInput" type="password" placeholder="PIN de administrador"
-      maxlength="20" onkeydown="if(event.key==='Enter')validarAdmin()">
-    <button class="btn-primary" onclick="validarAdmin()">Entrar como admin</button>
-    <button class="modal-close" onclick="cerrarModalAdmin()">Cancelar</button>
-  </div>
-</div>
-
-<!-- ══ APP ════════════════════════════════════════════════════════════════════ -->
 <div id="appScreen" class="screen">
   <div class="header">
     <div class="header-row">
@@ -280,6 +269,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="toast" id="toast"></div>
 
 <script>
+// Acá abajo empieza tu bloque de <script> original. 
+// Para que el botón nuevo funcione, agregá esta funcioncita justo abajo de la línea "const ADMIN_PIN = '1234'":
+
+function validarAdminDirecto() {
+  const pin = document.getElementById('adminPinDirecto').value.trim();
+  if (pin !== ADMIN_PIN) { showToast('PIN incorrecto ❌'); return; }
+  
+  // Activa el modo admin y te loguea directo
+  esAdmin = true;
+  document.getElementById('loginNombre').value = "Administrador";
+  document.getElementById('loginEmail').value = "admin@prode.com";
+  document.getElementById('loginPass').value = "123456";
+  
+  showToast('Acceso admin concedido ¡Hola Jefe! 👑');
+  doLogin(); // Ejecuta el logueo automático
+}
 // ══ CONFIGURACIÓN ════════════════════════════════════════════════════════════
 const API_URL   = 'https://script.google.com/macros/s/AKfycbx3gVgnFx8VdHkjgX0rIav9kAx4OQ9_I8LL7Kii1dY2mnzwoee59bgU5YgRr26XxS0bfw/exec'  // ← reemplazá con tu URL
 const ADMIN_PIN = '1234'                          // ← cambiá este PIN
