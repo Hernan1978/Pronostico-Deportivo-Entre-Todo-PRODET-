@@ -11,16 +11,11 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   min-height:100vh;
   background:
-    linear-gradient(rgba(0,0,0,0.20), rgba(0,0,0,0.20)),
-    url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1600&q=80');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+    linear-gradient(rgba(0,0,0,0.10), rgba(0,0,0,0.10)),
+    url('https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat fixed;
 }
 .screen{display:none}.screen.active{display:block}
 
-/* ── LOGIN ── */
 .login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;}
 .login-top{text-align:center;margin-bottom:28px}
 .login-top h1{color:#fff;font-size:32px;font-weight:800;letter-spacing:2px;text-shadow:0 4px 15px rgba(0,0,0,0.8)}
@@ -44,14 +39,12 @@ body{
   box-shadow:0 4px 20px rgba(0,0,0,0.4);
 }
 
-/* BOTON INVISIBLE */
 .admin-trigger{
   position:fixed;bottom:0;right:0;
   width:80px;height:80px;
   background:transparent;border:none;cursor:pointer;z-index:9999;
 }
 
-/* MODAL PIN */
 .modal-overlay{
   position:fixed;inset:0;background:rgba(0,0,0,0.85);
   backdrop-filter:blur(5px);z-index:10000;
@@ -74,20 +67,17 @@ body{
   font-size:13px;cursor:pointer;margin-top:12px;text-decoration:underline;
 }
 
-/* HEADER */
-.header{background:rgba(0,0,0,0.75);padding:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #16a34a}
+.header{background:rgba(0,0,0,0.70);padding:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #16a34a}
 .header h1{color:#fff;font-size:18px}
 .stats-row{display:flex;gap:8px;margin-top:10px}
 .stat-pill{flex:1;background:rgba(22,163,74,0.2);border-radius:12px;padding:8px;text-align:center;border:1px solid rgba(22,163,74,0.3)}
 .stat-val{color:#fff;font-size:20px;font-weight:700}
 .stat-lab{color:#a3e635;font-size:10px;text-transform:uppercase}
 
-/* TABS */
 .tabs{display:flex;background:#fff;position:sticky;top:105px;z-index:9}
 .tab{flex:1;padding:15px;font-size:14px;border:none;background:transparent;color:#666;font-weight:700}
 .tab.active{color:#16a34a;border-bottom:3px solid #16a34a}
 
-/* CONTENT */
 .content{padding:12px 12px 100px}
 .card{background:#fff;border-radius:18px;margin-bottom:15px;box-shadow:0 8px 20px rgba(0,0,0,0.2);overflow:hidden}
 .card-header{padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;font-weight:600;border-bottom:1px solid #eee;display:flex;justify-content:space-between}
@@ -99,7 +89,6 @@ body{
 .equipo-nom{font-size:13px;font-weight:700;color:#1e293b}
 .vs-box{font-size:22px;font-weight:900;color:#16a34a;padding:0 10px}
 
-/* PRONOSTICOS */
 .pron-controles{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:12px}
 .gol-num{width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .gol-btn{width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;background:#fff;font-size:20px;font-weight:700;cursor:pointer}
@@ -107,13 +96,11 @@ body{
 .guardar-btn.enviado{background:#059669;cursor:not-allowed;opacity:0.7;pointer-events:none}
 .pay-alert{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;margin-top:10px;font-size:12px;color:#b45309;text-align:center}
 
-/* POSICIONES */
 .pos-row{display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid #eee}
 .pos-num{width:30px;font-weight:800;color:#16a34a}
 .pos-nombre{flex:1;font-weight:600}
 .pos-pts{font-weight:800;font-size:16px}
 
-/* ADMIN */
 .admin-section{background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
 .admin-section h3{font-size:16px;color:#16a34a;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:5px}
 .admin-row{padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
@@ -290,7 +277,6 @@ function renderPartidos(){
   partidos.forEach(p=>{
     const pr=pronos[p.id], tiene=pr!==undefined;
     const gt=golesTemp[p.id]||{l:tiene?pr.l:0, v:tiene?pr.v:0};
-
     let cerrado=false;
     if(p.fecha.includes('/')){
       const parts=p.fecha.split('·');
@@ -299,10 +285,8 @@ function renderPartidos(){
       const fPart=new Date(2026, dm[1]-1, dm[0], hm[0], hm[1]);
       if((fPart-ahora)/60000<=10) cerrado=true;
     }
-
     const suspendido=p.jugado==='Suspendido';
     const jugado=p.jugado==='Jugado' || p.jugado===true || p.jugado==='TRUE';
-
     let ui='';
     if(suspendido) ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
     else if(jugado) ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
@@ -326,7 +310,6 @@ function renderPartidos(){
       `;
       if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
     }
-
     html += `
       <div class="card">
         <div class="card-header">
@@ -385,7 +368,6 @@ function renderAdmin(){
         <button class="admin-btn" style="padding:6px 10px; font-size:12px" onclick="setRes(${p.id})">✓</button>
       </div>
     </div>`).join('');
-
   let usuariosHtml=posiciones.map(u=>{
     const isAct=u.activo===true || u.activo==='TRUE' || u.activo==='true' || u.activo===undefined;
     return `
@@ -399,7 +381,6 @@ function renderAdmin(){
         </button>
       </div>`;
   }).join('');
-
   document.getElementById('tabAdmin').innerHTML = `
     <div class="admin-section">
       <h3>⚽ Cargar Resultados Reales</h3>
@@ -424,10 +405,7 @@ async function cambiarEstadoPago(userTarget, estaActivo){
   showToast('Actualizando estado...');
   const nuevoEstado=!estaActivo;
   try{
-    await fetch(API_URL,{
-      method:'POST',
-      body:JSON.stringify({accion:'toggleUsuarioActivo',usuarioModificar:userTarget,nuevoEstado:nuevoEstado})
-    });
+    await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'toggleUsuarioActivo',usuarioModificar:userTarget,nuevoEstado:nuevoEstado})});
     showToast('¡Usuario modificado con éxito! 🎯');
     const rPos=await fetch(API_URL+'?accion=getPosiciones').then(r=>r.json());
     posiciones=rPos.posiciones;
