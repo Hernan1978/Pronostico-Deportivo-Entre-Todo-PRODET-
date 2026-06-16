@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Prode 2026</title>
-<!-- Loguito de la Pelota en la solapa del navegador -->
 <link rel="icon" href="https://img.icons8.com/emoji/48/soccer-ball-emoji.png" type="image/png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -103,6 +102,7 @@ body{
 .gol-num{width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .gol-btn{width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;background:#fff;font-size:20px;font-weight:700;cursor:pointer}
 .guardar-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#16a34a;color:#fff;font-weight:700;cursor:pointer}
+.pron-guardado-box{text-align:center;background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;padding:12px;border-radius:12px;font-weight:700;font-size:14px}
 
 /* ALERTA DE PAGO */
 .pay-alert{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;margin-top:10px;font-size:12px;color:#b45309;text-align:center}
@@ -132,7 +132,6 @@ body{
 </head>
 <body>
 
-<!-- PANTALLA LOGIN -->
 <div id="loginScreen" class="screen active">
   <div class="login-wrap">
     <div class="login-top">
@@ -150,7 +149,6 @@ body{
   </div>
 </div>
 
-<!-- PANTALLA PRINCIPAL -->
 <div id="appScreen" class="screen">
   <div class="header">
     <div style="display:flex;justify-content:space-between;align-items:center">
@@ -174,7 +172,6 @@ body{
   <div id="tabAdmin" class="content" style="display:none"></div>
 </div>
 
-<!-- ACCESO SECRETO ADMIN -->
 <button class="admin-trigger" onclick="abrirModalPin()"></button>
 
 <div class="modal-overlay hidden" id="pinModal">
@@ -191,6 +188,10 @@ body{
 
 <script>
 // PEGA TU URL DE GOOGLE APPS SCRIPT ACÁ ABAJO:
+const API_URL = 'https://script.google.com/macros/s/AKfycbyhfDoyVrHe_8Fn0sGkA4RxthTFpgJz0-yeeVNpBcJk7N-aLRuAFn4wew-eVeEEgNU2Qg/exec'; 
+const ADMIN_PIN = '1234'; 
+const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
+
 const API_URL = 'https://script.google.com/macros/s/AKfycbyhfDoyVrHe_8Fn0sGkA4RxthTFpgJz0-yeeVNpBcJk7N-aLRuAFn4wew-eVeEEgNU2Qg/exec'; 
 const ADMIN_PIN = '1234'; 
 const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
@@ -226,17 +227,14 @@ const ESCUDOS = {
   'Tigre':                          'escudos/Tigre.png',
   'Union de Santa Fe':              'escudos/Union de Santa Fe.png',
   'Velez Sarfield':                 'escudos/Velez Sarfield.png',
-}
+};
+
 function escudoHtml(eq) {
-  const url = ESCUDOS[eq]
-  if (url) return `<img class="escudo-img" src="${url}" alt="${eq}" onerror="this.outerHTML='<span class=escudo-fb>⚽</span>'">`
-  return `<span class="escudo-fb">⚽</span>`
+  const url = ESCUDOS[eq];
+  if (url) return `<img class="escudo-img" src="${url}" alt="${eq}">`;
+  return `<span class="escudo-fb">⚽</span>`;
 }
-function escudoHtml(eq) {
-  const url = ESCUDOS[eq]
-  if (url) return `<img class="escudo-img" src="${url}" alt="${eq}" onerror="this.outerHTML='<span class=escudo-fb>⚽</span>'">`
-  return `<span class="escudo-fb">⚽</span>`
-}
+
 let usuario=null, email=null, esAdmin=false, usuarioActivo=true;
 let partidos=[], pronos={}, posiciones=[], golesTemp={};
 
@@ -332,38 +330,33 @@ function renderPartidos() {
     const suspendido = p.jugado === 'Suspendido';
     const jugado = p.jugado === 'Jugado' || p.jugado === true || p.jugado === 'TRUE';
 
-    // Busca desde: let ui='';
-// Hasta: el cierre del botón guardar-btn
+    let ui='';
+    if(suspendido) {
+      ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
+    } else if(jugado) {
+      ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
+    } else if(cerrado) {
+      ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
+    } else if(tiene) {
+      // SI YA TIENE PRONÓSTICO GUARDADO, MUESTRA EL CARTEL DE ÉXITO DIRECTAMENTE
+      ui=`<div class="pron-guardado-box">✓ Pronóstico Guardado (${pr.l} - ${pr.v})</div>`;
+    } else {
+      const block = !usuarioActivo ? 'disabled style="opacity:0.5"' : '';
+      ui = `
+        <div class="pron-controles">
+          <button class="gol-btn" ${block} onclick="edit(${p.id},'l',-1)">-</button>
+          <div class="gol-num" id="l_${p.id}">${gt.l}</div>
+          <button class="gol-btn" ${block} onclick="edit(${p.id},'l',1)">+</button>
+          <span style="font-weight:900;padding:0 10px; color:#111"> - </span>
+          <button class="gol-btn" ${block} onclick="edit(${p.id},'v',-1)">-</button>
+          <div class="gol-num" id="v_${p.id}">${gt.v}</div>
+          <button class="gol-btn" ${block} onclick="edit(${p.id},'v',1)">+</button>
+        </div>
+        <button class="guardar-btn" ${block} onclick="save(${p.id})">GUARDAR PRONOSTICO</button>
+      `;
+      if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
+    }
 
-// REEMPLAZA con esto:
-let ui='';
-if(suspendido) ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
-else if(jugado) ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
-else if(cerrado) ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
-else {
-  const block = !usuarioActivo ? 'disabled style="opacity:0.5"' : '';
-  
-  // CHEQUETA SI YA TIENE PRONOSTICO GUARDADO
-  const tieneProno = pronos[p.id] !== undefined;
-  const textoBtn = tieneProno ? 'ENVIADO ✓' : 'GUARDAR PRONÓSTICO';
-  const btnClass = tieneProno ? 'guardar-btn enviado' : 'guardar-btn';
-  
-  ui = `
-    <div class="pron-controles">
-      <button class="gol-btn" ${block} onclick="edit(${p.id},'l',-1)">-</button>
-      <div class="gol-num" id="l_${p.id}">${gt.l}</div>
-      <button class="gol-btn" ${block} onclick="edit(${p.id},'l',1)">+</button>
-      <span style="font-weight:900;padding:0 10px; color:#111"> - </span>
-      <button class="gol-btn" ${block} onclick="edit(${p.id},'v',-1)">-</button>
-      <div class="gol-num" id="v_${p.id}">${gt.v}</div>
-      <button class="gol-btn" ${block} onclick="edit(${p.id},'v',1)">+</button>
-    </div>
-    <button class="${btnClass}" ${block} onclick="save(${p.id})">${textoBtn}</button>
-  `;
-  if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
-}
-
-    // ACÁ SE MUESTRA EL CARTELITO DE LA FECHA DEPORTIVA JUNTO A LA FECHA CALENDARIO
     html += `
       <div class="card">
         <div class="card-header">
@@ -373,12 +366,12 @@ else {
         <div class="card-body">
           <div class="equipos">
             <div class="equipo">
-              <img src="${ESCUDOS[p.local]||''}" class="escudo-img" onerror="this.style.display='none'">
+              ${escudoHtml(p.local)}
               <div class="equipo-nom">${p.local}</div>
             </div>
             <div class="vs-box">${jugado?p.golesL+' - '+p.golesV:'VS'}</div>
             <div class="equipo">
-              <img src="${ESCUDOS[p.visitante]||''}" class="escudo-img" onerror="this.style.display='none'">
+              ${escudoHtml(p.visitante)}
               <div class="equipo-nom">${p.visitante}</div>
             </div>
           </div>
@@ -471,7 +464,7 @@ async function cambiarEstadoPago(userTarget, estaActivo) {
     });
     showToast(`¡Usuario modificado con éxito! 🎯`);
     const rPos = await fetch(API_URL+'?accion=getPosiciones').then(r=>r.json());
-    posiciones = rPos.posiciones;
+    positions = rPos.posiciones;
     renderAdmin();
   } catch(e) {
     showToast('Error al cambiar estado');
