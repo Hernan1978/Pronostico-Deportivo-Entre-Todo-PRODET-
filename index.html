@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Prode 2026</title>
+<!-- Loguito de la Pelota en la solapa del navegador -->
 <link rel="icon" href="https://img.icons8.com/emoji/48/soccer-ball-emoji.png" type="image/png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -88,7 +89,8 @@ body{
 /* ── CARDS PARTIDOS ── */
 .content{padding:12px 12px 100px}
 .card{background:#fff;border-radius:18px;margin-bottom:15px;box-shadow:0 8px 20px rgba(0,0,0,0.2);overflow:hidden}
-.card-header{padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;font-weight:600;border-bottom:1px solid #eee}
+.card-header{padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;font-weight:600;border-bottom:1px solid #eee;display:flex;justify-content:space-between}
+.fecha-badge{background:#e2e8f0;color:#334155;padding:2px 8px;border-radius:6px;font-weight:700;font-size:10px;text-transform:uppercase}
 .card-body{padding:15px}
 .equipos{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
 .equipo{flex:1;text-align:center}
@@ -130,6 +132,7 @@ body{
 </head>
 <body>
 
+<!-- PANTALLA LOGIN -->
 <div id="loginScreen" class="screen active">
   <div class="login-wrap">
     <div class="login-top">
@@ -147,6 +150,7 @@ body{
   </div>
 </div>
 
+<!-- PANTALLA PRINCIPAL -->
 <div id="appScreen" class="screen">
   <div class="header">
     <div style="display:flex;justify-content:space-between;align-items:center">
@@ -170,6 +174,7 @@ body{
   <div id="tabAdmin" class="content" style="display:none"></div>
 </div>
 
+<!-- ACCESO SECRETO ADMIN -->
 <button class="admin-trigger" onclick="abrirModalPin()"></button>
 
 <div class="modal-overlay hidden" id="pinModal">
@@ -186,11 +191,10 @@ body{
 
 <script>
 // PEGA TU URL DE GOOGLE APPS SCRIPT ACÁ ABAJO:
-const API_URL = 'https://script.google.com/macros/s/AKfycbx3gVgnFx8VdHkjgX0rIav9kAx4OQ9_I8LL7Kii1dY2mnzwoee59bgU5YgRr26XxS0bfw/exec'; 
+const API_URL = 'https://script.google.com/macros/s/AKfycbyhfDoyVrHe_8Fn0sGkA4RxthTFpgJz0-yeeVNpBcJk7N-aLRuAFn4wew-eVeEEgNU2Qg/exec'; 
 const ADMIN_PIN = '1234'; 
 const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
 
-// AQUÍ ESTÁN TUS ESCUDOS REALES ASIGNADOS UNO POR UNO
 const ESCUDOS = {
   'Aldosivi': 'https://www.thesportsdb.com/images/media/team/badge/aldosivi.png',
   'Argentinos Juniors': 'https://www.thesportsdb.com/images/media/team/badge/ttqtr31421635006.png',
@@ -340,9 +344,13 @@ function renderPartidos() {
       if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
     }
 
+    // ACÁ SE MUESTRA EL CARTELITO DE LA FECHA DEPORTIVA JUNTO A LA FECHA CALENDARIO
     html += `
       <div class="card">
-        <div class="card-header">${p.fecha}</div>
+        <div class="card-header">
+          <span>${p.fecha}</span>
+          <span class="fecha-badge">${p.fechaTorneo || 'Prode'}</span>
+        </div>
         <div class="card-body">
           <div class="equipos">
             <div class="equipo">
@@ -385,7 +393,10 @@ function renderPosiciones() {
 function renderAdmin() {
   let partidosHtml = partidos.map(p=>`
     <div class="admin-row">
-      <span style="font-size:13px; font-weight:600; color:#333; max-width:60%">${p.local} vs ${p.visitante}</span>
+      <div style="display:flex; flex-direction:column; max-width:60%">
+        <span style="font-size:13px; font-weight:600; color:#333">${p.local} vs ${p.visitante}</span>
+        <span style="font-size:10px; color:#16a34a; font-weight:700">${p.fechaTorneo || ''}</span>
+      </div>
       <div style="display:flex; align-items:center;">
         <input class="num-input" id="al_${p.id}" type="number" value="${p.golesL||0}">
         <input class="num-input" id="av_${p.id}" type="number" value="${p.golesV||0}">
