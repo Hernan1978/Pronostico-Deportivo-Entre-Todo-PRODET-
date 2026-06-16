@@ -11,8 +11,12 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   min-height:100vh;
   background:
-    linear-gradient(rgba(0,0,0,0.10), rgba(0,0,0,0.10)),
-    url('https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat fixed;
+    linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.18)),
+    url('https://images.unsplash.com/photo-1500930287596-ced14a0f1b0d?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .screen{display:none}.screen.active{display:block}
 
@@ -67,7 +71,7 @@ body{
   font-size:13px;cursor:pointer;margin-top:12px;text-decoration:underline;
 }
 
-.header{background:rgba(0,0,0,0.70);padding:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #16a34a}
+.header{background:rgba(0,0,0,0.72);padding:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #16a34a}
 .header h1{color:#fff;font-size:18px}
 .stats-row{display:flex;gap:8px;margin-top:10px}
 .stat-pill{flex:1;background:rgba(22,163,74,0.2);border-radius:12px;padding:8px;text-align:center;border:1px solid rgba(22,163,74,0.3)}
@@ -215,44 +219,28 @@ let partidos=[], pronos={}, posiciones=[], golesTemp={};
 
 function abrirModalPin(){document.getElementById('pinModal').classList.remove('hidden');document.getElementById('inputPin').focus();}
 function cerrarModalPin(){document.getElementById('pinModal').classList.add('hidden');document.getElementById('inputPin').value='';}
-
 async function verificarPinAdmin(){
   const pin=document.getElementById('inputPin').value.trim();
   if(pin!==ADMIN_PIN){showToast('PIN Incorrecto ❌');return;}
-  cerrarModalPin();
-  esAdmin=true;
-  if(!usuario) usuario='Administrador';
-  showToast('Conectando Panel de Control... 👑');
+  cerrarModalPin(); esAdmin=true; if(!usuario) usuario='Administrador'; showToast('Conectando Panel de Control... 👑');
   try{
-    const res=await Promise.all([
-      fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),
-      fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())
-    ]);
+    const res=await Promise.all([fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())]);
     partidos=res[0].partidos; posiciones=res[1].posiciones;
     document.getElementById('loginScreen').classList.remove('active');
     document.getElementById('appScreen').classList.add('active');
     document.getElementById('headerNombre').textContent='¡Hola, Hernán! (Admin)';
-    const btn=document.getElementById('adminTabBtn');
-    btn.style.display='block';
-    renderAll();
-    switchTab('admin', btn);
+    const btn=document.getElementById('adminTabBtn'); btn.style.display='block';
+    renderAll(); switchTab('admin', btn);
   }catch(e){showToast('Error de conexión');}
 }
-
 async function doLogin(){
   const n=document.getElementById('loginNombre').value.trim();
   const m=document.getElementById('loginEmail').value.trim();
   if(!n || !m.includes('@')){showToast('Completá nombre y email');return;}
-  usuario=n; email=m;
-  document.getElementById('loginBtn').disabled=true;
-  document.getElementById('loginBtn').textContent='Conectando...';
+  usuario=n; email=m; document.getElementById('loginBtn').disabled=true; document.getElementById('loginBtn').textContent='Conectando...';
   try{
     await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'registrarUsuario',usuario,email})});
-    const res=await Promise.all([
-      fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),
-      fetch(API_URL+'?accion=getPronosticos&usuario='+usuario).then(r=>r.json()),
-      fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())
-    ]);
+    const res=await Promise.all([fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),fetch(API_URL+'?accion=getPronosticos&usuario='+usuario).then(r=>r.json()),fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())]);
     partidos=res[0].partidos; pronos=res[1].pronosticos; posiciones=res[2].posiciones;
     const info=posiciones.find(p=>p.usuario===usuario);
     if(info && (info.activo===false || info.activo==='FALSE' || info.activo==='false')) usuarioActivo=false;
@@ -262,7 +250,6 @@ async function doLogin(){
     renderAll();
   }catch(e){showToast('Error al conectar con Sheets');document.getElementById('loginBtn').disabled=false;}
 }
-
 function switchTab(t,btn){
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
   btn.classList.add('active');
@@ -271,7 +258,6 @@ function switchTab(t,btn){
   document.getElementById('tabAdmin').style.display=t==='admin'?'block':'none';
   if(t==='admin') renderAdmin();
 }
-
 function renderPartidos(){
   let html=''; const ahora=new Date();
   partidos.forEach(p=>{
@@ -289,7 +275,7 @@ function renderPartidos(){
     const jugado=p.jugado==='Jugado' || p.jugado===true || p.jugado==='TRUE';
     let ui='';
     if(suspendido) ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
-    else if(jugado) ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
+    else if(jugado) ui=`<div style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
     else if(cerrado) ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
     else{
       const block=!usuarioActivo ? 'disabled style="opacity:0.5"' : '';
@@ -334,13 +320,11 @@ function renderPartidos(){
   });
   document.getElementById('tabPartidos').innerHTML = html || '<p style="color:#fff;text-align:center">No hay partidos cargados</p>';
 }
-
 function edit(id,l,d){
   if(!golesTemp[id]){const p=pronos[id];golesTemp[id]={l:p?p.l:0,v:p?p.v:0};}
   golesTemp[id][l]=Math.max(0,golesTemp[id][l]+d);
   document.getElementById((l==='l'?'l_':'v_')+id).textContent=golesTemp[id][l];
 }
-
 async function save(id){
   const g=golesTemp[id] || {l:0,v:0};
   showToast('Guardando...');
@@ -349,12 +333,10 @@ async function save(id){
   showToast('¡Guardado con éxito! 🎯');
   renderAll();
 }
-
 function renderPosiciones(){
   let h=''; posiciones.forEach((p,i)=>h+=`<div class="pos-row"><div class="pos-num">${i+1}</div><div class="pos-nombre">${p.usuario}</div><div class="pos-pts">${p.puntos} pts</div></div>`);
   document.getElementById('tabPosiciones').innerHTML = `<div class="card">${h||'Sin datos'}</div>`;
 }
-
 function renderAdmin(){
   let partidosHtml=partidos.map(p=>`
     <div class="admin-row">
@@ -392,7 +374,6 @@ function renderAdmin(){
       ${usuariosHtml || '<p>No hay usuarios registrados</p>'}
     </div>`;
 }
-
 async function setRes(id){
   const l=document.getElementById('al_'+id).value, v=document.getElementById('av_'+id).value;
   if(!l || !v) return;
@@ -400,7 +381,6 @@ async function setRes(id){
   await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'cargarResultado',partidoId:id,golesL:parseInt(l),golesV:parseInt(v)})});
   showToast('Resultado guardado ✅');
 }
-
 async function cambiarEstadoPago(userTarget, estaActivo){
   showToast('Actualizando estado...');
   const nuevoEstado=!estaActivo;
@@ -412,14 +392,12 @@ async function cambiarEstadoPago(userTarget, estaActivo){
     renderAdmin();
   }catch(e){showToast('Error al cambiar estado');}
 }
-
 function renderAll(){
   renderPartidos();
   renderPosiciones();
   document.getElementById('statPts').textContent = Object.values(pronos).reduce((a,b)=>a+(b.puntos||0),0);
   document.getElementById('statPend').textContent = partidos.filter(p=>!p.jugado && !pronos[p.id]).length;
 }
-
 function showToast(m){
   const t=document.getElementById('toast');
   t.textContent=m;
