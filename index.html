@@ -332,26 +332,36 @@ function renderPartidos() {
     const suspendido = p.jugado === 'Suspendido';
     const jugado = p.jugado === 'Jugado' || p.jugado === true || p.jugado === 'TRUE';
 
-    let ui='';
-    if(suspendido) ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
-    else if(jugado) ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
-    else if(cerrado) ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
-    else {
-      const block = !usuarioActivo ? 'disabled style="opacity:0.5"' : '';
-      ui = `
-        <div class="pron-controles">
-          <button class="gol-btn" ${block} onclick="edit(${p.id},'l',-1)">-</button>
-          <div class="gol-num" id="l_${p.id}">${gt.l}</div>
-          <button class="gol-btn" ${block} onclick="edit(${p.id},'l',1)">+</button>
-          <span style="font-weight:900;padding:0 10px; color:#111"> - </span>
-          <button class="gol-btn" ${block} onclick="edit(${p.id},'v',-1)">-</button>
-          <div class="gol-num" id="v_${p.id}">${gt.v}</div>
-          <button class="gol-btn" ${block} onclick="edit(${p.id},'v',1)">+</button>
-        </div>
-        <button class="guardar-btn" ${block} onclick="save(${p.id})">GUARDAR PRONOSTICO</button>
-      `;
-      if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
-    }
+    // Busca desde: let ui='';
+// Hasta: el cierre del botón guardar-btn
+
+// REEMPLAZA con esto:
+let ui='';
+if(suspendido) ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
+else if(jugado) ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
+else if(cerrado) ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
+else {
+  const block = !usuarioActivo ? 'disabled style="opacity:0.5"' : '';
+  
+  // CHEQUETA SI YA TIENE PRONOSTICO GUARDADO
+  const tieneProno = pronos[p.id] !== undefined;
+  const textoBtn = tieneProno ? 'ENVIADO ✓' : 'GUARDAR PRONÓSTICO';
+  const btnClass = tieneProno ? 'guardar-btn enviado' : 'guardar-btn';
+  
+  ui = `
+    <div class="pron-controles">
+      <button class="gol-btn" ${block} onclick="edit(${p.id},'l',-1)">-</button>
+      <div class="gol-num" id="l_${p.id}">${gt.l}</div>
+      <button class="gol-btn" ${block} onclick="edit(${p.id},'l',1)">+</button>
+      <span style="font-weight:900;padding:0 10px; color:#111"> - </span>
+      <button class="gol-btn" ${block} onclick="edit(${p.id},'v',-1)">-</button>
+      <div class="gol-num" id="v_${p.id}">${gt.v}</div>
+      <button class="gol-btn" ${block} onclick="edit(${p.id},'v',1)">+</button>
+    </div>
+    <button class="${btnClass}" ${block} onclick="save(${p.id})">${textoBtn}</button>
+  `;
+  if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
+}
 
     // ACÁ SE MUESTRA EL CARTELITO DE LA FECHA DEPORTIVA JUNTO A LA FECHA CALENDARIO
     html += `
