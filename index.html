@@ -14,121 +14,32 @@ body{
 }
 .screen{display:none}.screen.active{display:block}
 
-/* FONDO ANIMADO: LUCES DEL ESTADIO QUE SE ENCENDEN */
-.stadium-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  min-height:100vh;
+  background-color: #000;
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  animation: changeStadium 60s infinite;
 }
 
-.stadium-bg::before {
-  content: '';
-  position: absolute;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
-  background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg');
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
-  filter: brightness(1.0);
-  animation: stadiumCycle 60s infinite;
+@keyframes changeStadium {
+  0% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg'); }
+  10% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8970f2b20f4339afafb4f37b6019846e5baf17d9.jpg'); }
+  20% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1d3b41e5c6babff09b34fa402f9eb4c4ce8978b6.jpg'); }
+  30% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5c6e6a0c8fa10e33164f45c06c5d5b0a03e62b0f.jpg'); }
+  40% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/139f0d6e7d3e09f1688ab3adb48aae7ecb90b7ab.jpg'); }
+  50% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/7a23c6bdd339f072bad68bf6adfadab380ea262d.jpg'); }
+  60% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/bcf351f069d6324d3cde865e7bb96a454a3114d3.jpg'); }
+  70% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3d5439b56af18a7c942eddccbdc837f0c6a23c3a.jpg'); }
+  80% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a7bf53697e2987c6647c594b656619d7dede763f.jpg'); }
+  90% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/4334d6189e427cfc265e226aca243b73d899f4b3.jpg'); }
+  100% { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg'); }
 }
 
-.stadium-bg::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);
-  animation: lightsOn 60s infinite;
-}
-
-@keyframes stadiumCycle {
-  0% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  9% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8970f2b20f4339afafb4f37b6019846e5baf17d9.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  18% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1d3b41e5c6babff09b34fa402f9eb4c4ce8978b6.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  27% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5c6e6a0c8fa10e33164f45c06c5d5b0a03e62b0f.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  36% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/139f0d6e7d3e09f1688ab3adb48aae7ecb90b7ab.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  45% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/7a23c6bdd339f072bad68bf6adfadab380ea262d.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  54% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/bcf351f069d6324d3cde865e7bb96a454a3114d3.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  63% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3d5439b56af18a7c942eddccbdc837f0c6a23c3a.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  72% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a7bf53697e2987c6647c594b656619d7dede763f.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  81% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/4334d6189e427cfc265e226aca243b73d899f4b3.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  90% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/0bd2794d4a159653e34f7220835c6fd861419e8e.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  90.01% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-  100% {
-    background-image: url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg');
-    filter: brightness(1.0);
-    transform: scale(1);
-  }
-}
-
-@keyframes lightsOn {
-  0% { background-color: rgba(0,0,0,0.6); }
-  20% { background-color: rgba(0,0,0,0.45); }
-  40% { background-color: rgba(0,0,0,0.35); }
-  60% { background-color: rgba(0,0,0,0.25); }
-  80% { background-color: rgba(0,0,0,0.15); }
-  90% { background-color: rgba(0,0,0,0.15); }
-  90.01% { background-color: rgba(0,0,0,0.6); }
-  100% { background-color: rgba(0,0,0,0.6); }
-}
+.screen{display:none}.screen.active{display:block}
 /* ── LOGIN ── */
 .login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;}
 .login-top{text-align:center;margin-bottom:28px}
