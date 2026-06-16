@@ -10,13 +10,54 @@
 body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   min-height:100vh;
-  background-color: #000;
-  background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg');
+  background-color: transparent;
+}
+.screen{display:none}.screen.active{display:block}
+
+/* FONDO ANIMADO DE ESTADIOS */
+.stadium-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.stadium-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  animation: stadiumFade 20s infinite;
 }
-.screen{display:none}.screen.active{display:block}
+
+@keyframes stadiumFade {
+  0% {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg');
+  }
+  20% {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8970f2b20f4339afafb4f37b6019846e5baf17d9.jpg');
+  }
+  40% {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1d3b41e5c6babff09b34fa402f9eb4c4ce8978b6.jpg');
+  }
+  60% {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5c6e6a0c8fa10e33164f45c06c5d5b0a03e62b0f.jpg');
+  }
+  80% {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/139f0d6e7d3e09f1688ab3adb48aae7ecb90b7ab.jpg');
+  }
+  100% {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/138558a0922f03fe5c6c299ca47ea85571f97b91.jpg');
+  }
+}
 
 /* ── LOGIN ── */
 .login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;}
@@ -102,7 +143,12 @@ body{
 .gol-num{width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .gol-btn{width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;background:#fff;font-size:20px;font-weight:700;cursor:pointer}
 .guardar-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#16a34a;color:#fff;font-weight:700;cursor:pointer}
-.pron-guardado-box{text-align:center;background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;padding:12px;border-radius:12px;font-weight:700;font-size:14px}
+.guardar-btn.enviado {
+  background: #059669;
+  cursor: not-allowed;
+  opacity: 0.7;
+  pointer-events: none;
+}
 
 /* ALERTA DE PAGO */
 .pay-alert{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;margin-top:10px;font-size:12px;color:#b45309;text-align:center}
@@ -117,10 +163,8 @@ body{
 .admin-section{background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
 .admin-section h3{font-size:16px;color:#16a34a;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:5px}
 .admin-row{padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
-.num-input{width:48px;padding:6px;border-radius:8px;border:1px solid #ccc;text-align:center;margin-right:3px;font-size:15px;font-weight:700}
-.pen-input{width:38px;padding:6px;border-radius:8px;border:1px solid #d1d5db;background:#f3f4f6;text-align:center;margin-right:3px;font-size:13px;font-weight:700;color:#dc2626}
+.num-input{width:55px;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:center;margin-right:5px;font-size:16px;font-weight:700}
 .admin-btn{background:#16a34a;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
-.admin-btn-edit{background:#eab308;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
 
 .user-panel-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f1f5f9}
 .user-info-box{display:flex;flex-direction:column}
@@ -134,6 +178,10 @@ body{
 </head>
 <body>
 
+<!-- FONDO ANIMADO DE ESTADIOS -->
+<div class="stadium-bg"></div>
+
+<!-- PANTALLA LOGIN -->
 <div id="loginScreen" class="screen active">
   <div class="login-wrap">
     <div class="login-top">
@@ -151,6 +199,7 @@ body{
   </div>
 </div>
 
+<!-- PANTALLA PRINCIPAL -->
 <div id="appScreen" class="screen">
   <div class="header">
     <div style="display:flex;justify-content:space-between;align-items:center">
@@ -174,6 +223,7 @@ body{
   <div id="tabAdmin" class="content" style="display:none"></div>
 </div>
 
+<!-- ACCESO SECRETO ADMIN -->
 <button class="admin-trigger" onclick="abrirModalPin()"></button>
 
 <div class="modal-overlay hidden" id="pinModal">
@@ -224,15 +274,12 @@ const ESCUDOS = {
   'Tigre':                          'escudos/Tigre.png',
   'Union de Santa Fe':              'escudos/Union de Santa Fe.png',
   'Velez Sarfield':                 'escudos/Velez Sarfield.png',
-};
-
-
-function escudoHtml(eq) {
-  const url = ESCUDOS[eq];
-  if (url) return `<img class="escudo-img" src="${url}" alt="${eq}">`;
-  return `<span class="escudo-fb">⚽</span>`;
 }
-
+function escudoHtml(eq) {
+  const url = ESCUDOS[eq]
+  if (url) return `<img class="escudo-img" src="${url}" alt="${eq}" onerror="this.outerHTML='<span class=escudo-fb>⚽</span>'">`
+  return `<span class="escudo-fb">⚽</span>`
+}
 let usuario=null, email=null, esAdmin=false, usuarioActivo=true;
 let partidos=[], pronos={}, posiciones=[], golesTemp={};
 
@@ -329,17 +376,16 @@ function renderPartidos() {
     const jugado = p.jugado === 'Jugado' || p.jugado === true || p.jugado === 'TRUE';
 
     let ui='';
-    if(suspendido) {
-      ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
-    } else if(jugado) {
-      let penalesTexto = (p.penalesL !== undefined && p.penalesV !== undefined && p.penalesL !== '' && p.penalesV !== '') ? ` (${p.penalesL}-${p.penalesV} por Penales)` : '';
-      ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}${penalesTexto}</div>`;
-    } else if(cerrado) {
-      ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
-    } else if(tiene) {
-      ui=`<div class="pron-guardado-box">✓ Pronóstico Guardado (${pr.l} - ${pr.v})</div>`;
-    } else {
+    if(suspendido) ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
+    else if(jugado) ui=`<div class="pron-guardado" style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
+    else if(cerrado) ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
+    else {
       const block = !usuarioActivo ? 'disabled style="opacity:0.5"' : '';
+      
+      const tieneProno = pronos[p.id] !== undefined;
+      const textoBtn = tieneProno ? 'ENVIADO ✓' : 'GUARDAR PRONÓSTICO';
+      const btnClass = tieneProno ? 'guardar-btn enviado' : 'guardar-btn';
+      
       ui = `
         <div class="pron-controles">
           <button class="gol-btn" ${block} onclick="edit(${p.id},'l',-1)">-</button>
@@ -350,7 +396,7 @@ function renderPartidos() {
           <div class="gol-num" id="v_${p.id}">${gt.v}</div>
           <button class="gol-btn" ${block} onclick="edit(${p.id},'v',1)">+</button>
         </div>
-        <button class="guardar-btn" ${block} onclick="save(${p.id})">GUARDAR PRONOSTICO</button>
+        <button class="${btnClass}" ${block} onclick="save(${p.id})">${textoBtn}</button>
       `;
       if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
     }
@@ -364,12 +410,12 @@ function renderPartidos() {
         <div class="card-body">
           <div class="equipos">
             <div class="equipo">
-              ${escudoHtml(p.local)}
+              <img src="${ESCUDOS[p.local]||''}" class="escudo-img" onerror="this.style.display='none'">
               <div class="equipo-nom">${p.local}</div>
             </div>
             <div class="vs-box">${jugado?p.golesL+' - '+p.golesV:'VS'}</div>
             <div class="equipo">
-              ${escudoHtml(p.visitante)}
+              <img src="${ESCUDOS[p.visitante]||''}" class="escudo-img" onerror="this.style.display='none'">
               <div class="equipo-nom">${p.visitante}</div>
             </div>
           </div>
@@ -401,29 +447,18 @@ function renderPosiciones() {
 }
 
 function renderAdmin() {
-  let partidosHtml = partidos.map(p=>{
-    const yaJugado = p.jugado === 'Jugado' || p.jugado === true || p.jugado === 'TRUE';
-    const disabledStr = yaJugado ? 'disabled' : '';
-    
-    return `
-    <div class="admin-row" id="admin_row_${p.id}">
-      <div style="display:flex; flex-direction:column; max-width:40%">
+  let partidosHtml = partidos.map(p=>`
+    <div class="admin-row">
+      <div style="display:flex; flex-direction:column; max-width:60%">
         <span style="font-size:13px; font-weight:600; color:#333">${p.local} vs ${p.visitante}</span>
         <span style="font-size:10px; color:#16a34a; font-weight:700">${p.fechaTorneo || ''}</span>
       </div>
       <div style="display:flex; align-items:center;">
-        <input class="num-input" id="al_${p.id}" type="number" value="${p.golesL||0}" ${disabledStr}>
-        <input class="num-input" id="av_${p.id}" type="number" value="${p.golesV||0}" ${disabledStr}>
-        <span style="font-size:11px; margin:0 2px; color:#666">(</span>
-        <input class="pen-input" id="pl_${p.id}" type="number" placeholder="P" value="${p.penalesL||''}" ${disabledStr}>
-        <input class="pen-input" id="pv_${p.id}" type="number" placeholder="P" value="${p.penalesV||''}" ${disabledStr}>
-        <span style="font-size:11px; margin:0 4px 0 2px; color:#666">)</span>
-        
-        <button id="btn_save_${p.id}" class="admin-btn" style="padding:6px 10px; font-size:12px; display:${yaJugado?'none':'inline-block'}" onclick="setRes(${p.id})">✓</button>
-        <button id="btn_edit_${p.id}" class="admin-btn-edit" style="padding:6px 10px; font-size:12px; display:${yaJugado?'inline-block':'none'}" onclick="habilitarEdicionAdmin(${p.id})">✏️</button>
+        <input class="num-input" id="al_${p.id}" type="number" value="${p.golesL||0}">
+        <input class="num-input" id="av_${p.id}" type="number" value="${p.golesV||0}">
+        <button class="admin-btn" style="padding:6px 10px; font-size:12px" onclick="setRes(${p.id})">✓</button>
       </div>
-    </div>`;
-  }).join('');
+    </div>`).join('');
 
   let usuariosHtml = posiciones.map(u => {
     const isAct = u.activo === true || u.activo === 'TRUE' || u.activo === 'true' || u.activo === undefined;
@@ -451,57 +486,17 @@ function renderAdmin() {
     </div>`;
 }
 
-function habilitarEdicionAdmin(id) {
-  document.getElementById('al_'+id).disabled = false;
-  document.getElementById('av_'+id).disabled = false;
-  document.getElementById('pl_'+id).disabled = false;
-  document.getElementById('pv_'+id).disabled = false;
-  document.getElementById('btn_save_'+id).style.display = 'inline-block';
-  document.getElementById('btn_edit_'+id).style.display = 'none';
-}
-
 async function setRes(id) {
   const l=document.getElementById('al_'+id).value, v=document.getElementById('av_'+id).value;
-  const pl=document.getElementById('pl_'+id).value, pv=document.getElementById('pv_'+id).value;
   if(!l || !v) return;
   showToast('Cargando resultado...');
-  
-  await fetch(API_URL,{
-    method:'POST', 
-    body:JSON.stringify({
-      accion:'cargarResultado',
-      partidoId:id,
-      golesL:parseInt(l),
-      golesV:parseInt(v),
-      penalesL: pl !== '' ? parseInt(pl) : '',
-      penalesV: pv !== '' ? parseInt(pv) : ''
-    })
-  });
-  
-  let match = partidos.find(p=>p.id===id);
-  if(match) {
-    match.jugado = 'Jugado';
-    match.golesL = parseInt(l);
-    match.golesV = parseInt(v);
-    match.penalesL = pl !== '' ? parseInt(pl) : '';
-    match.penalesV = pv !== '' ? parseInt(pv) : '';
-  }
-  
+  await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'cargarResultado',partidoId:id,golesL:parseInt(l),golesV:parseInt(v)})});
   showToast('Resultado guardado ✅');
-  renderAdmin();
 }
 
 async function cambiarEstadoPago(userTarget, estaActivo) {
   showToast('Actualizando estado...');
   const nuevoEstado = !estaActivo; 
-  
-  // Modificación inmediata visual en la lista local antes de la petición para visualización en milisegundos
-  let userLocal = posiciones.find(u => u.usuario === userTarget);
-  if(userLocal) {
-    userLocal.activo = nuevoEstado;
-  }
-  renderAdmin();
-
   try {
     await fetch(API_URL, {
       method: 'POST',
