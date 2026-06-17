@@ -4,119 +4,233 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Prode 2026</title>
-<link rel="icon" href="https://img.icons8.com/emoji/48/soccer-ball-emoji.png" type="image/png">
+//img.icons8.com/emoji/48/soccer-ball-emoji.png" type="image/png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  min-height:100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.12)),
-    url('https://images.unsplash.com/photo-1500930287596-ced14a0f1b0d?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat fixed;
-}
-.screen{display:none}.screen.active{display:block}
+html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#000}
+body{position:relative}
 
-.login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;}
+#videoBG{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  background:#000;
+}
+.bg-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1s ease-in-out;
+}
+.bg-video.active{opacity:1}
+.bg-overlay{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25));
+}
+
+.screen{display:none;position:relative;z-index:2}
+.screen.active{display:block}
+
+.login-wrap{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:24px;
+}
 .login-top{text-align:center;margin-bottom:28px}
-.login-top h1{color:#fff;font-size:32px;font-weight:800;letter-spacing:2px;text-shadow:0 4px 15px rgba(0,0,0,0.8)}
+.login-top h1{
+  color:#fff;font-size:32px;font-weight:800;letter-spacing:2px;
+  text-shadow:0 4px 15px rgba(0,0,0,0.8)
+}
 .login-top p{color:#a3e635;font-size:14px;font-weight:600;text-transform:uppercase}
 .login-card{
   background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
   border:1px solid rgba(255,255,255,0.2);
-  border-radius:24px;padding:30px;width:100%;max-width:360px;
+  border-radius:24px;
+  padding:30px;
+  width:100%;
+  max-width:360px;
 }
-.field-label{font-size:11px;color:#fff;display:block;margin-bottom:5px;font-weight:700;text-transform:uppercase}
+.field-label{
+  font-size:11px;color:#fff;display:block;margin-bottom:5px;
+  font-weight:700;text-transform:uppercase
+}
 .glass-input{
-  width:100%;padding:14px;border-radius:12px;
+  width:100%;
+  padding:14px;
+  border-radius:12px;
   border:1px solid rgba(255,255,255,0.3);
   background:rgba(0,0,0,0.5);
-  color:#fff;font-size:16px;outline:none;margin-bottom:15px;
+  color:#fff;
+  font-size:16px;
+  outline:none;
+  margin-bottom:15px;
 }
 .btn-login{
-  width:100%;padding:15px;border-radius:12px;border:none;
-  background:#16a34a;color:#fff;font-size:16px;font-weight:800;cursor:pointer;
+  width:100%;
+  padding:15px;
+  border-radius:12px;
+  border:none;
+  background:#16a34a;
+  color:#fff;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
   box-shadow:0 4px 20px rgba(0,0,0,0.4);
 }
 
 .admin-trigger{
-  position:fixed;bottom:0;right:0;
-  width:80px;height:80px;
-  background:transparent;border:none;cursor:pointer;z-index:9999;
+  position:fixed;bottom:0;right:0;width:80px;height:80px;
+  background:transparent;border:none;cursor:pointer;z-index:9999
 }
 
 .modal-overlay{
   position:fixed;inset:0;background:rgba(0,0,0,0.85);
   backdrop-filter:blur(5px);z-index:10000;
-  display:flex;align-items:center;justify-content:center;padding:16px;
+  display:flex;align-items:center;justify-content:center;padding:16px
 }
 .modal-overlay.hidden{display:none}
 .modal-card{
   background:#111;border-radius:20px;padding:25px;
-  width:100%;max-width:320px;border:1px solid #16a34a;
-  text-align:center;
+  width:100%;max-width:320px;border:1px solid #16a34a;text-align:center
 }
 .modal-title{color:#fff;font-size:18px;font-weight:700;margin-bottom:6px}
 .dark-input{
   width:100%;padding:12px;border-radius:12px;
-  border:1px solid #222;background:#000;
-  color:#fff;font-size:18px;outline:none;margin-bottom:14px;text-align:center;letter-spacing:4px;
+  border:1px solid #222;background:#000;color:#fff;
+  font-size:18px;outline:none;margin-bottom:14px;text-align:center;letter-spacing:4px
 }
 .modal-close{
-  background:none;border:none;color:#666;
-  font-size:13px;cursor:pointer;margin-top:12px;text-decoration:underline;
+  background:none;border:none;color:#666;font-size:13px;
+  cursor:pointer;margin-top:12px;text-decoration:underline
 }
 
-.header{background:rgba(0,0,0,0.72);padding:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #16a34a}
+.header{
+  background:rgba(0,0,0,0.72);
+  padding:16px;
+  position:sticky;top:0;z-index:10;
+  border-bottom:1px solid #16a34a
+}
 .header h1{color:#fff;font-size:18px}
 .stats-row{display:flex;gap:8px;margin-top:10px}
-.stat-pill{flex:1;background:rgba(22,163,74,0.2);border-radius:12px;padding:8px;text-align:center;border:1px solid rgba(22,163,74,0.3)}
+.stat-pill{
+  flex:1;background:rgba(22,163,74,0.2);border-radius:12px;
+  padding:8px;text-align:center;border:1px solid rgba(22,163,74,0.3)
+}
 .stat-val{color:#fff;font-size:20px;font-weight:700}
 .stat-lab{color:#a3e635;font-size:10px;text-transform:uppercase}
 
 .tabs{display:flex;background:#fff;position:sticky;top:105px;z-index:9}
-.tab{flex:1;padding:15px;font-size:14px;border:none;background:transparent;color:#666;font-weight:700}
+.tab{
+  flex:1;padding:15px;font-size:14px;border:none;background:transparent;
+  color:#666;font-weight:700
+}
 .tab.active{color:#16a34a;border-bottom:3px solid #16a34a}
 
 .content{padding:12px 12px 100px}
-.card{background:#fff;border-radius:18px;margin-bottom:15px;box-shadow:0 8px 20px rgba(0,0,0,0.2);overflow:hidden}
-.card-header{padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;font-weight:600;border-bottom:1px solid #eee;display:flex;justify-content:space-between}
-.fecha-badge{background:#e2e8f0;color:#334155;padding:2px 8px;border-radius:6px;font-weight:700;font-size:10px;text-transform:uppercase}
+.card{
+  background:#fff;border-radius:18px;margin-bottom:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);overflow:hidden
+}
+.card-header{
+  padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;
+  font-weight:600;border-bottom:1px solid #eee;display:flex;justify-content:space-between
+}
+.fecha-badge{
+  background:#e2e8f0;color:#334155;padding:2px 8px;border-radius:6px;
+  font-weight:700;font-size:10px;text-transform:uppercase
+}
 .card-body{padding:15px}
-.equipos{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.equipos{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:15px
+}
 .equipo{flex:1;text-align:center}
 .escudo-img{width:50px;height:50px;object-fit:contain;margin-bottom:5px}
 .equipo-nom{font-size:13px;font-weight:700;color:#1e293b}
 .vs-box{font-size:22px;font-weight:900;color:#16a34a;padding:0 10px}
 
-.pron-controles{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:12px}
-.gol-num{width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.gol-btn{width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;background:#fff;font-size:20px;font-weight:700;cursor:pointer}
-.guardar-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#16a34a;color:#fff;font-weight:700;cursor:pointer}
-.guardar-btn.enviado{background:#059669;cursor:not-allowed;opacity:0.7;pointer-events:none}
-.pay-alert{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;margin-top:10px;font-size:12px;color:#b45309;text-align:center}
+.pron-controles{
+  display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:12px
+}
+.gol-num{
+  width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;
+  font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center
+}
+.gol-btn{
+  width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;
+  background:#fff;font-size:20px;font-weight:700;cursor:pointer
+}
+.guardar-btn{
+  width:100%;padding:12px;border-radius:12px;border:none;background:#16a34a;
+  color:#fff;font-weight:700;cursor:pointer
+}
+.guardar-btn.enviado{
+  background:#059669;cursor:not-allowed;opacity:0.7;pointer-events:none
+}
+.pay-alert{
+  background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;
+  margin-top:10px;font-size:12px;color:#b45309;text-align:center
+}
 
-.pos-row{display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid #eee}
+.pos-row{
+  display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid #eee
+}
 .pos-num{width:30px;font-weight:800;color:#16a34a}
 .pos-nombre{flex:1;font-weight:600}
 .pos-pts{font-weight:800;font-size:16px}
 
-.admin-section{background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-.admin-section h3{font-size:16px;color:#16a34a;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:5px}
-.admin-row{padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
-.num-input{width:55px;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:center;margin-right:5px;font-size:16px;font-weight:700}
-.admin-btn{background:#16a34a;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
-.user-panel-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f1f5f9}
+.admin-section{
+  background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1)
+}
+.admin-section h3{
+  font-size:16px;color:#16a34a;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:5px
+}
+.admin-row{
+  padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between
+}
+.num-input{
+  width:55px;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:center;
+  margin-right:5px;font-size:16px;font-weight:700
+}
+.admin-btn{
+  background:#16a34a;color:#fff;border:none;padding:10px 14px;border-radius:8px;
+  font-weight:700;cursor:pointer
+}
+.user-panel-row{
+  display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f1f5f9
+}
 .user-info-box{display:flex;flex-direction:column}
-.toggle-pay-btn{padding:8px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;color:#fff;min-width:110px}
+.toggle-pay-btn{
+  padding:8px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;
+  cursor:pointer;color:#fff;min-width:110px
+}
 .btn-pay-active{background:#16a34a}
 .btn-pay-blocked{background:#dc2626}
 
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;z-index:20000;opacity:0;transition:0.3s;pointer-events:none}
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#000;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;
+  z-index:20000;opacity:0;transition:0.3s;pointer-events:none
+}
 .toast.show{opacity:1}
 </style>
 </head>
 <body>
+
+<div id="videoBG"></div>
+<div class="bg-overlay"></div>
 
 <div id="loginScreen" class="screen active">
   <div class="login-wrap">
@@ -126,9 +240,9 @@ body{
       <p>Torneo Argentino</p>
     </div>
     <div class="login-card">
-      <label class="field-label">Nombre y Apellido</label>
+      abel class="field-label">Nombre y Apellido</label>
       <input class="glass-input" id="loginNombre" placeholder="Ej: Hernán Pérez">
-      <label class="field-label">Email</label>
+      abel class="field-label">Email</label>
       <input class="glass-input" id="loginEmail" type="email" placeholder="ejemplo@correo.com">
       <button class="btn-login" id="loginBtn" onclick="doLogin()">Entrar a Jugar →</button>
     </div>
@@ -176,6 +290,10 @@ body{
 const API_URL = 'https://script.google.com/macros/s/AKfycbyhfDoyVrHe_8Fn0sGkA4RxthTFpgJz0-yeeVNpBcJk7N-aLRuAFn4wew-eVeEEgNU2Qg/exec';
 const ADMIN_PIN = '1234';
 const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
+const VIDEO_FILES = ['video1.mp4','video2.mp4','video3.mp4','video4.mp4'];
+const VIDEO_DURATION_MS = 5000;
+const FADE_MS = 1000;
+const VIDEO_POSTER = 'poster.jpg';
 
 const ESCUDOS = {
   'Aldosivi':'escudos/Aldosivi.png',
@@ -212,6 +330,39 @@ const ESCUDOS = {
 
 let usuario=null, email=null, esAdmin=false, usuarioActivo=true;
 let partidos=[], pronos={}, posiciones=[], golesTemp={};
+let activeVideo = null;
+let videoIndex = 0;
+
+function initVideoBackground(){
+  const bg = document.getElementById('videoBG');
+  function createVideo(src){
+    const v = document.createElement('video');
+    v.src = src;
+    v.className = 'bg-video';
+    v.autoplay = true;
+    v.muted = true;
+    v.loop = false;
+    v.playsInline = true;
+    v.preload = 'auto';
+    v.poster = VIDEO_POSTER;
+    return v;
+  }
+  function playNext(){
+    const src = VIDEO_FILES[videoIndex % VIDEO_FILES.length];
+    const next = createVideo(src);
+    bg.appendChild(next);
+    requestAnimationFrame(()=>next.classList.add('active'));
+    if(activeVideo){
+      activeVideo.classList.remove('active');
+      const old = activeVideo;
+      setTimeout(()=>{ if(old && old.parentNode) old.remove(); }, FADE_MS + 100);
+    }
+    next.play().catch(()=>{});
+    activeVideo = next;
+    setTimeout(()=>{ videoIndex++; playNext(); }, VIDEO_DURATION_MS - FADE_MS);
+  }
+  playNext();
+}
 
 function abrirModalPin(){document.getElementById('pinModal').classList.remove('hidden');document.getElementById('inputPin').focus();}
 function cerrarModalPin(){document.getElementById('pinModal').classList.add('hidden');document.getElementById('inputPin').value='';}
@@ -257,7 +408,10 @@ async function doLogin(){
     document.getElementById('appScreen').classList.add('active');
     document.getElementById('headerNombre').textContent='¡Hola, '+n.split(' ')[0]+'!';
     renderAll();
-  }catch(e){showToast('Error al conectar con Sheets');document.getElementById('loginBtn').disabled=false;}
+  }catch(e){
+    showToast('Error al conectar con Sheets');
+    document.getElementById('loginBtn').disabled=false;
+  }
 }
 
 function switchTab(t,btn){
@@ -423,6 +577,8 @@ function showToast(m){
   t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3000);
 }
+
+initVideoBackground();
 </script>
 </body>
 </html>
