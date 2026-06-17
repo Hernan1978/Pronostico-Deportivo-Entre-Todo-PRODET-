@@ -180,8 +180,16 @@ body{position:relative}
   background:#059669;cursor:not-allowed;opacity:0.7;pointer-events:none
 }
 .pay-alert{
-  background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;
-  margin-top:10px;font-size:12px;color:#b45309;text-align:center
+  background:rgba(255,255,255,0.95);
+  border:2px solid #dc2626;
+  border-radius:14px;
+  padding:14px;
+  margin-top:12px;
+  font-size:12px;
+  color:#991b1b;
+  text-align:center;
+  font-weight:600;
+  box-shadow:0 4px 14px rgba(0,0,0,0.15);
 }
 
 .pos-row{
@@ -292,11 +300,12 @@ body{position:relative}
 <script>
 const API_URL = 'https://script.google.com/macros/s/AKfycbyhfDoyVrHe_8Fn0sGkA4RxthTFpgJz0-yeeVNpBcJk7N-aLRuAFn4wew-eVeEEgNU2Qg/exec';
 const ADMIN_PIN = '1234';
-const CONFIG = { mp: 'prode.hernan.mp', precio: '$5000' };
+const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
 const VIDEO_FILES = ['video1.mp4','video2.mp4','video3.mp4','video4.mp4'];
 const VIDEO_DURATION_MS = 5000;
 const FADE_MS = 1000;
 const VIDEO_POSTER = 'poster.jpg';
+const WHATSAPP_NUMERO = '5491112345678';
 
 const ESCUDOS = {
   'Aldosivi':'escudos/Aldosivi.png',
@@ -432,6 +441,7 @@ function renderPartidos(){
     const pr=pronos[p.id], tiene=pr!==undefined;
     const gt=golesTemp[p.id]||{l:tiene?pr.l:0, v:tiene?pr.v:0};
     let cerrado=false;
+
     if(p.fecha.includes('/')){
       const parts=p.fecha.split('·');
       const dm=parts[0].trim().split(' ')[1].split('/');
@@ -439,31 +449,51 @@ function renderPartidos(){
       const fPart=new Date(2026, dm[1]-1, dm[0], hm[0], hm[1]);
       if((fPart-ahora)/60000<=10) cerrado=true;
     }
+
     const suspendido=p.jugado==='Suspendido';
     const jugado=p.jugado==='Jugado' || p.jugado===true || p.jugado==='TRUE';
+    const bloqueado = !usuarioActivo;
     let ui='';
-    if(suspendido) ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
-    else if(jugado) ui=`<div style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
-    else if(cerrado) ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
-    else{
-      const block=!usuarioActivo ? 'disabled style="opacity:0.5"' : '';
-      const tieneProno=pronos[p.id] !== undefined;
-      const textoBtn=tieneProno ? 'ENVIADO ✓' : 'GUARDAR PRONÓSTICO';
-      const btnClass=tieneProno ? 'guardar-btn enviado' : 'guardar-btn';
+
+    if(suspendido){
+      ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
+    } else if(jugado){
+      ui=`<div style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
+    } else if(cerrado){
+      ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
+    } else {
+      const blockAttr = bloqueado ? 'disabled style="opacity:0.5;pointer-events:none"' : '';
+      const tieneProno = pronos[p.id] !== undefined;
+      const textoBtn = tieneProno ? 'ENVIADO ✓' : 'GUARDAR PRONÓSTICO';
+      const btnClass = tieneProno ? 'guardar-btn enviado' : 'guardar-btn';
+
       ui = `
         <div class="pron-controles">
-          <button class="gol-btn" ${block} onclick="edit(${p.id},'l',-1)">-</button>
+          <button class="gol-btn" ${blockAttr} onclick="edit(${p.id},'l',-1)">-</button>
           <div class="gol-num" id="l_${p.id}">${gt.l}</div>
-          <button class="gol-btn" ${block} onclick="edit(${p.id},'l',1)">+</button>
+          <button class="gol-btn" ${blockAttr} onclick="edit(${p.id},'l',1)">+</button>
           <span style="font-weight:900;padding:0 10px; color:#111"> - </span>
-          <button class="gol-btn" ${block} onclick="edit(${p.id},'v',-1)">-</button>
+          <button class="gol-btn" ${blockAttr} onclick="edit(${p.id},'v',-1)">-</button>
           <div class="gol-num" id="v_${p.id}">${gt.v}</div>
-          <button class="gol-btn" ${block} onclick="edit(${p.id},'v',1)">+</button>
+          <button class="gol-btn" ${blockAttr} onclick="edit(${p.id},'v',1)">+</button>
         </div>
-        <button class="${btnClass}" ${block} onclick="save(${p.id})">${textoBtn}</button>
+        <button class="${btnClass}" ${blockAttr} onclick="save(${p.id})">${textoBtn}</button>
       `;
-      if(!usuarioActivo) ui += `<div class="pay-alert">🔒 PAGO PENDIENTE: Enviá ${CONFIG.precio} a ${CONFIG.mp}</div>`;
+
+      if(bloqueado){
+        ui += `
+          <div class="pay-alert">
+            <div style="font-size:13px;font-weight:800;margin-bottom:4px;">🔒 PAGO PENDIENTE</div>
+            <div style="font-size:12px;margin-bottom:3px;">Monto: ${CONFIG.precio}</div>
+            <div style="font-size:12px;font-weight:700;margin-bottom:10px;">Alias: ${CONFIG.mp}</div>
+            <a href="https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Hola, quiero informar mi pago del prode. Mi nombre es: ' + (usuario || ''))}" target="_blank" style="text-decoration:none;">
+              <button class="guardar-btn" style="background:#25D366">Informar pago</button>
+            </a>
+          </div>
+        `;
+      }
     }
+
     html += `
       <div class="card">
         <div class="card-header">
@@ -486,16 +516,19 @@ function renderPartidos(){
         </div>
       </div>`;
   });
+
   document.getElementById('tabPartidos').innerHTML = html || '<p style="color:#fff;text-align:center">No hay partidos cargados</p>';
 }
 
 function edit(id,l,d){
   if(!golesTemp[id]){const p=pronos[id];golesTemp[id]={l:p?p.l:0,v:p?p.v:0};}
+  if(!usuarioActivo) return;
   golesTemp[id][l]=Math.max(0,golesTemp[id][l]+d);
   document.getElementById((l==='l'?'l_':'v_')+id).textContent=golesTemp[id][l];
 }
 
 async function save(id){
+  if(!usuarioActivo) return;
   const g=golesTemp[id] || {l:0,v:0};
   showToast('Guardando...');
   await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'guardarPronostico',usuario,partidoId:id,golesL:g.l,golesV:g.v})});
