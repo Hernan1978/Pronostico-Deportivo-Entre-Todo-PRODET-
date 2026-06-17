@@ -10,202 +10,95 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#000}
 body{position:relative}
-
-#videoBG{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  overflow:hidden;
-  background:#000;
-}
-.bg-video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0;
-  transition:opacity 1s ease-in-out;
-}
+#videoBG{position:fixed;inset:0;z-index:0;overflow:hidden;background:#000}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease-in-out}
 .bg-video.active{opacity:1}
-.bg-overlay{
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  background:linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25));
-}
-
-.screen{display:none;position:relative;z-index:2}
+.bg-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25))}
+.screen{display:none;position:relative;z-index:5}
 .screen.active{display:block}
-
-.login-wrap{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:24px;
-}
+.login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px}
 .login-top{text-align:center;margin-bottom:28px}
-.login-top h1{
-  color:#fff;font-size:32px;font-weight:800;letter-spacing:2px;
-  text-shadow:0 4px 15px rgba(0,0,0,0.8)
-}
+.login-top h1{color:#fff;font-size:32px;font-weight:800;letter-spacing:2px;text-shadow:0 4px 15px rgba(0,0,0,0.8)}
 .login-top p{color:#a3e635;font-size:14px;font-weight:600;text-transform:uppercase}
 .login-card{
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(15px);
-  -webkit-backdrop-filter:blur(15px);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:24px;
-  padding:30px;
-  width:100%;
-  max-width:360px;
+  background:rgba(255,255,255,0.1);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.2);border-radius:24px;padding:30px;width:100%;max-width:360px
 }
-.field-label{
-  font-size:11px;color:#fff;display:block;margin-bottom:5px;
-  font-weight:700;text-transform:uppercase
-}
+.field-label{font-size:11px;color:#fff;display:block;margin-bottom:5px;font-weight:700;text-transform:uppercase}
 .glass-input{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.3);
-  background:rgba(0,0,0,0.5);
-  color:#fff;
-  font-size:16px;
-  outline:none;
-  margin-bottom:15px;
+  width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.3);
+  background:rgba(0,0,0,0.5);color:#fff;font-size:16px;outline:none;margin-bottom:15px
 }
 .btn-login{
-  width:100%;
-  padding:15px;
-  border-radius:12px;
-  border:none;
-  background:#16a34a;
-  color:#fff;
-  font-size:16px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  width:100%;padding:15px;border-radius:12px;border:none;background:#16a34a;
+  color:#fff;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.4)
 }
-
-.admin-trigger{
-  position:fixed;bottom:0;right:0;width:80px;height:80px;
-  background:transparent;border:none;cursor:pointer;z-index:9999
-}
-
+.admin-trigger{position:fixed;bottom:0;right:0;width:80px;height:80px;background:transparent;border:none;cursor:pointer;z-index:9999}
 .modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(5px);z-index:10000;
-  display:flex;align-items:center;justify-content:center;padding:16px
+  position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(5px);
+  z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px
 }
 .modal-overlay.hidden{display:none}
-.modal-card{
-  background:#111;border-radius:20px;padding:25px;
-  width:100%;max-width:320px;border:1px solid #16a34a;text-align:center
-}
+.modal-card{background:#111;border-radius:20px;padding:25px;width:100%;max-width:320px;border:1px solid #16a34a;text-align:center}
 .modal-title{color:#fff;font-size:18px;font-weight:700;margin-bottom:6px}
 .dark-input{
-  width:100%;padding:12px;border-radius:12px;
-  border:1px solid #222;background:#000;color:#fff;
+  width:100%;padding:12px;border-radius:12px;border:1px solid #222;background:#000;color:#fff;
   font-size:18px;outline:none;margin-bottom:14px;text-align:center;letter-spacing:4px
 }
-.modal-close{
-  background:none;border:none;color:#666;font-size:13px;
-  cursor:pointer;margin-top:12px;text-decoration:underline
-}
-
-.header{
-  background:rgba(0,0,0,0.72);
-  padding:16px;
-  position:sticky;top:0;z-index:10;
-  border-bottom:1px solid #16a34a
-}
+.modal-close{background:none;border:none;color:#666;font-size:13px;cursor:pointer;margin-top:12px;text-decoration:underline}
+.header{background:rgba(0,0,0,0.72);padding:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #16a34a}
 .header h1{color:#fff;font-size:18px}
 .stats-row{display:flex;gap:8px;margin-top:10px}
-.stat-pill{
-  flex:1;background:rgba(22,163,74,0.2);border-radius:12px;
-  padding:8px;text-align:center;border:1px solid rgba(22,163,74,0.3)
-}
+.stat-pill{flex:1;background:rgba(22,163,74,0.2);border-radius:12px;padding:8px;text-align:center;border:1px solid rgba(22,163,74,0.3)}
 .stat-val{color:#fff;font-size:20px;font-weight:700}
 .stat-lab{color:#a3e635;font-size:10px;text-transform:uppercase}
-
 .tabs{display:flex;background:#fff;position:sticky;top:105px;z-index:9}
-.tab{
-  flex:1;padding:15px;font-size:14px;border:none;background:transparent;
-  color:#666;font-weight:700
-}
+.tab{flex:1;padding:15px;font-size:14px;border:none;background:transparent;color:#666;font-weight:700}
 .tab.active{color:#16a34a;border-bottom:3px solid #16a34a}
-
-.content{padding:12px 12px 100px}
-.card{
-  background:#fff;border-radius:18px;margin-bottom:15px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);overflow:hidden
-}
+.content{padding:12px 12px 100px;position:relative;z-index:6}
+.card{background:#fff;border-radius:18px;margin-bottom:15px;box-shadow:0 8px 20px rgba(0,0,0,0.2);overflow:hidden}
 .card-header{
-  padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;
-  font-weight:600;border-bottom:1px solid #eee;display:flex;justify-content:space-between
+  padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;font-weight:600;
+  border-bottom:1px solid #eee;display:flex;justify-content:space-between
 }
 .fecha-badge{
   background:#e2e8f0;color:#334155;padding:2px 8px;border-radius:6px;
   font-weight:700;font-size:10px;text-transform:uppercase
 }
 .card-body{padding:15px}
-.equipos{
-  display:flex;align-items:center;justify-content:space-between;margin-bottom:15px
-}
+.equipos{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
 .equipo{flex:1;text-align:center}
 .escudo-img{width:50px;height:50px;object-fit:contain;margin-bottom:5px}
 .equipo-nom{font-size:13px;font-weight:700;color:#1e293b}
 .vs-box{font-size:22px;font-weight:900;color:#16a34a;padding:0 10px}
-
-.pron-controles{
-  display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:12px
-}
+.pron-controles{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:12px}
 .gol-num{
-  width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;
-  font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center
+  width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;font-size:24px;
+  font-weight:700;display:flex;align-items:center;justify-content:center
 }
 .gol-btn{
-  width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;
-  background:#fff;font-size:20px;font-weight:700;cursor:pointer
+  width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;background:#fff;
+  font-size:20px;font-weight:700;cursor:pointer
 }
 .guardar-btn{
   width:100%;padding:12px;border-radius:12px;border:none;background:#16a34a;
   color:#fff;font-weight:700;cursor:pointer
 }
-.guardar-btn.enviado{
-  background:#059669;cursor:not-allowed;opacity:0.7;pointer-events:none
-}
+.guardar-btn.enviado{background:#059669;cursor:not-allowed;opacity:0.7;pointer-events:none}
 .pay-alert{
-  background:rgba(255,255,255,0.95);
-  border:2px solid #dc2626;
-  border-radius:14px;
-  padding:14px;
-  margin-top:12px;
-  font-size:12px;
-  color:#991b1b;
-  text-align:center;
-  font-weight:600;
-  box-shadow:0 4px 14px rgba(0,0,0,0.15);
+  position:relative;z-index:6;background:rgba(255,255,255,0.97);border:2px solid #dc2626;
+  border-radius:14px;padding:14px;margin-top:12px;font-size:12px;color:#991b1b;
+  text-align:center;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,0.15)
 }
-
-.pos-row{
-  display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid #eee
-}
+.pos-row{display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid #eee}
 .pos-num{width:30px;font-weight:800;color:#16a34a}
 .pos-nombre{flex:1;font-weight:600}
 .pos-pts{font-weight:800;font-size:16px}
-
 .admin-section{
   background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;
   box-shadow:0 4px 10px rgba(0,0,0,0.1)
 }
-.admin-section h3{
-  font-size:16px;color:#16a34a;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:5px
-}
+.admin-section h3{font-size:16px;color:#16a34a;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:5px}
 .admin-row{
   padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between
 }
@@ -227,7 +120,6 @@ body{position:relative}
 }
 .btn-pay-active{background:#16a34a}
 .btn-pay-blocked{background:#dc2626}
-
 .toast{
   position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
   background:#000;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;
@@ -251,10 +143,8 @@ body{position:relative}
     <div class="login-card">
       <label class="field-label" for="loginNombre">Nombre y Apellido</label>
       <input class="glass-input" id="loginNombre" type="text" placeholder="Ej: Hernán Pérez" autocomplete="name">
-
       <label class="field-label" for="loginEmail">Email</label>
       <input class="glass-input" id="loginEmail" type="email" placeholder="ejemplo@correo.com" autocomplete="email">
-
       <button class="btn-login" id="loginBtn" onclick="doLogin()">Entrar a Jugar →</button>
     </div>
   </div>
@@ -298,131 +188,100 @@ body{position:relative}
 <div class="toast" id="toast"></div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbyhfDoyVrHe_8Fn0sGkA4RxthTFpgJz0-yeeVNpBcJk7N-aLRuAFn4wew-eVeEEgNU2Qg/exec';
-const ADMIN_PIN = '1234';
-const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
-const VIDEO_FILES = ['video1.mp4','video2.mp4','video3.mp4','video4.mp4'];
-const VIDEO_DURATION_MS = 5000;
-const FADE_MS = 1000;
-const VIDEO_POSTER = 'poster.jpg';
-const WHATSAPP_NUMERO = '5491112345678';
+const API_URL='https://script.google.com/macros/s/AKfycbyhfDoyVrHe_8Fn0sGkA4RxthTFpgJz0-yeeVNpBcJk7N-aLRuAFn4wew-eVeEEgNU2Qg/exec';
+const ADMIN_PIN='1234';
+const CONFIG={mp:'prode.hernan.mp',precio:'$2000'};
+const VIDEO_FILES=['video1.mp4','video2.mp4','video3.mp4','video4.mp4'];
+const VIDEO_DURATION_MS=5000, FADE_MS=1000, VIDEO_POSTER='poster.jpg';
+let WHATSAPP_NUMERO='5491100000000';
+let adminFiltro='todos';
 
-const ESCUDOS = {
-  'Aldosivi':'escudos/Aldosivi.png',
-  'Argentinos Juniors':'escudos/Argentinos Juniors.png',
-  'Atletico Tucuman':'escudos/Atletico Tucuman.png',
-  'Banfield':'escudos/Banfield.png',
-  'Barracas Central':'escudos/Barracas Central.png',
-  'Belgrano (cba)':'escudos/Belgrano (cba).png',
-  'Boca Juniors':'escudos/Boca Juniors.png',
-  'Central Cordoba':'escudos/Central Cordoba.png',
-  'Defensa y Justicia':'escudos/Defensa y Justicia.png',
-  'Deportivo Riestra':'escudos/Deportivo Riestra.png',
-  'Estudiantes de La Plata':'escudos/Estudiantes de La Plata.png',
-  'Estudiantes de Rio Cuarto':'escudos/Estudiantes de Rio Cuarto.png',
-  'Gimnasia y Esgrima de La Plata':'escudos/Gimnasia y Esgrima de La Plata.png',
-  'Gimnasia y Esgrima de Mendoza':'escudos/Gimnasia y Esgrima de Mendoza.png',
-  'Huracan':'escudos/Huracan.png',
-  'Independiente':'escudos/Independiente.png',
-  'Independiente Rivadavia':'escudos/Independiente Rivadavia.png',
-  'Instituto':'escudos/Instituto.png',
-  'Lanus':'escudos/Lanus.png',
-  'Newells Old Boys':'escudos/Newells Old Boys.png',
-  'Platense':'escudos/Platense.png',
-  'Racing Club':'escudos/Racing Club.png',
-  'River Plate':'escudos/River Plate.png',
-  'Rosario Central':'escudos/Rosario Central.png',
-  'San Lorenzo de Almagro':'escudos/San Lorenzo de Almagro.png',
-  'Sarmiento de Junin':'escudos/Sarmiento de Junin.png',
-  'Talleres de Cordoba':'escudos/Talleres de Cordoba.png',
-  'Tigre':'escudos/Tigre.png',
-  'Union de Santa Fe':'escudos/Union de Santa Fe.png',
-  'Velez Sarfield':'escudos/Velez Sarfield.png',
+const ESCUDOS={
+'Aldosivi':'escudos/Aldosivi.png','Argentinos Juniors':'escudos/Argentinos Juniors.png','Atletico Tucuman':'escudos/Atletico Tucuman.png',
+'Banfield':'escudos/Banfield.png','Barracas Central':'escudos/Barracas Central.png','Belgrano (cba)':'escudos/Belgrano (cba).png',
+'Boca Juniors':'escudos/Boca Juniors.png','Central Cordoba':'escudos/Central Cordoba.png','Defensa y Justicia':'escudos/Defensa y Justicia.png',
+'Deportivo Riestra':'escudos/Deportivo Riestra.png','Estudiantes de La Plata':'escudos/Estudiantes de La Plata.png',
+'Estudiantes de Rio Cuarto':'escudos/Estudiantes de Rio Cuarto.png','Gimnasia y Esgrima de La Plata':'escudos/Gimnasia y Esgrima de La Plata.png',
+'Gimnasia y Esgrima de Mendoza':'escudos/Gimnasia y Esgrima de Mendoza.png','Huracan':'escudos/Huracan.png',
+'Independiente':'escudos/Independiente.png','Independiente Rivadavia':'escudos/Independiente Rivadavia.png','Instituto':'escudos/Instituto.png',
+'Lanus':'escudos/Lanus.png','Newells Old Boys':'escudos/Newells Old Boys.png','Platense':'escudos/Platense.png',
+'Racing Club':'escudos/Racing Club.png','River Plate':'escudos/River Plate.png','Rosario Central':'escudos/Rosario Central.png',
+'San Lorenzo de Almagro':'escudos/San Lorenzo de Almagro.png','Sarmiento de Junin':'escudos/Sarmiento de Junin.png',
+'Talleres de Cordoba':'escudos/Talleres de Cordoba.png','Tigre':'escudos/Tigre.png','Union de Santa Fe':'escudos/Union de Santa Fe.png',
+'Velez Sarfield':'escudos/Velez Sarfield.png'
 };
 
-let usuario=null, email=null, esAdmin=false, usuarioActivo=true;
-let partidos=[], pronos={}, posiciones=[], golesTemp={};
-let activeVideo = null;
-let videoIndex = 0;
+let usuario=null,email=null,esAdmin=false,usuarioActivo=false;
+let partidos=[],pronos={},posiciones=[],golesTemp={};
+let activeVideo=null,videoIndex=0;
 
 function initVideoBackground(){
-  const bg = document.getElementById('videoBG');
+  const bg=document.getElementById('videoBG');
   function createVideo(src){
-    const v = document.createElement('video');
-    v.src = src;
-    v.className = 'bg-video';
-    v.autoplay = true;
-    v.muted = true;
-    v.loop = false;
-    v.playsInline = true;
-    v.preload = 'auto';
-    v.poster = VIDEO_POSTER;
+    const v=document.createElement('video');
+    v.src=src; v.className='bg-video'; v.autoplay=true; v.muted=true; v.loop=false; v.playsInline=true; v.preload='auto'; v.poster=VIDEO_POSTER;
     return v;
   }
   function playNext(){
-    const src = VIDEO_FILES[videoIndex % VIDEO_FILES.length];
-    const next = createVideo(src);
+    const src=VIDEO_FILES[videoIndex%VIDEO_FILES.length];
+    const next=createVideo(src);
     bg.appendChild(next);
     requestAnimationFrame(()=>next.classList.add('active'));
     if(activeVideo){
       activeVideo.classList.remove('active');
-      const old = activeVideo;
-      setTimeout(()=>{ if(old && old.parentNode) old.remove(); }, FADE_MS + 100);
+      const old=activeVideo;
+      setTimeout(()=>{ if(old&&old.parentNode) old.remove(); }, FADE_MS+100);
     }
     next.play().catch(()=>{});
-    activeVideo = next;
-    setTimeout(()=>{ videoIndex++; playNext(); }, VIDEO_DURATION_MS - FADE_MS);
+    activeVideo=next;
+    setTimeout(()=>{ videoIndex++; playNext(); }, VIDEO_DURATION_MS-FADE_MS);
   }
   playNext();
 }
 
-function abrirModalPin(){document.getElementById('pinModal').classList.remove('hidden');document.getElementById('inputPin').focus();}
-function cerrarModalPin(){document.getElementById('pinModal').classList.add('hidden');document.getElementById('inputPin').value='';}
+function abrirModalPin(){document.getElementById('pinModal').classList.remove('hidden');document.getElementById('inputPin').focus()}
+function cerrarModalPin(){document.getElementById('pinModal').classList.add('hidden');document.getElementById('inputPin').value=''}
 
 async function verificarPinAdmin(){
   const pin=document.getElementById('inputPin').value.trim();
-  if(pin!==ADMIN_PIN){showToast('PIN Incorrecto ❌');return;}
+  if(pin!==ADMIN_PIN){showToast('PIN Incorrecto ❌');return}
   cerrarModalPin(); esAdmin=true; if(!usuario) usuario='Administrador'; showToast('Conectando Panel de Control... 👑');
   try{
-    const res=await Promise.all([
-      fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),
-      fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())
-    ]);
+    const res=await Promise.all([fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())]);
     partidos=res[0].partidos; posiciones=res[1].posiciones;
     document.getElementById('loginScreen').classList.remove('active');
     document.getElementById('appScreen').classList.add('active');
     document.getElementById('headerNombre').textContent='¡Hola, Hernán! (Admin)';
-    const btn=document.getElementById('adminTabBtn');
-    btn.style.display='block';
+    document.getElementById('adminTabBtn').style.display='block';
     renderAll();
-    switchTab('admin', btn);
-  }catch(e){showToast('Error de conexión');}
+    switchTab('admin',document.getElementById('adminTabBtn'));
+  }catch(e){showToast('Error de conexión')}
 }
 
 async function doLogin(){
   const n=document.getElementById('loginNombre').value.trim();
   const m=document.getElementById('loginEmail').value.trim();
-  if(!n || !m.includes('@')){showToast('Completá nombre y email');return;}
+  if(!n||!m.includes('@')){showToast('Completá nombre y email');return}
   usuario=n; email=m;
   document.getElementById('loginBtn').disabled=true;
   document.getElementById('loginBtn').textContent='Conectando...';
   try{
-    await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'registrarUsuario',usuario,email})});
+    await fetch(API_URL,{method:'POST',body:JSON.stringify({accion:'registrarUsuario',usuario,email})});
     const res=await Promise.all([
       fetch(API_URL+'?accion=getPartidos').then(r=>r.json()),
       fetch(API_URL+'?accion=getPronosticos&usuario='+usuario).then(r=>r.json()),
       fetch(API_URL+'?accion=getPosiciones').then(r=>r.json())
     ]);
     partidos=res[0].partidos; pronos=res[1].pronosticos; posiciones=res[2].posiciones;
-    const info=posiciones.find(p=>p.usuario===usuario);
-    if(info && (info.activo===false || info.activo==='FALSE' || info.activo==='false')) usuarioActivo=false;
     document.getElementById('loginScreen').classList.remove('active');
     document.getElementById('appScreen').classList.add('active');
     document.getElementById('headerNombre').textContent='¡Hola, '+n.split(' ')[0]+'!';
+    usuarioActivo=false;
     renderAll();
   }catch(e){
     showToast('Error al conectar con Sheets');
     document.getElementById('loginBtn').disabled=false;
+    document.getElementById('loginBtn').textContent='Entrar a Jugar →';
   }
 }
 
@@ -439,9 +298,8 @@ function renderPartidos(){
   let html=''; const ahora=new Date();
   partidos.forEach(p=>{
     const pr=pronos[p.id], tiene=pr!==undefined;
-    const gt=golesTemp[p.id]||{l:tiene?pr.l:0, v:tiene?pr.v:0};
+    const gt=golesTemp[p.id]||{l:tiene?pr.l:0,v:tiene?pr.v:0};
     let cerrado=false;
-
     if(p.fecha.includes('/')){
       const parts=p.fecha.split('·');
       const dm=parts[0].trim().split(' ')[1].split('/');
@@ -449,25 +307,20 @@ function renderPartidos(){
       const fPart=new Date(2026, dm[1]-1, dm[0], hm[0], hm[1]);
       if((fPart-ahora)/60000<=10) cerrado=true;
     }
-
     const suspendido=p.jugado==='Suspendido';
-    const jugado=p.jugado==='Jugado' || p.jugado===true || p.jugado==='TRUE';
-    const bloqueado = !usuarioActivo;
+    const jugado=p.jugado==='Jugado'||p.jugado===true||p.jugado==='TRUE';
     let ui='';
-
     if(suspendido){
       ui=`<p style="color:red;text-align:center;font-weight:700">❌ PARTIDO SUSPENDIDO</p>`;
-    } else if(jugado){
+    }else if(jugado){
       ui=`<div style="text-align:center;color:#16a34a;font-weight:bold">Resultado real: ${p.golesL}-${p.golesV}</div>`;
-    } else if(cerrado){
+    }else if(cerrado){
       ui=`<p style="text-align:center;color:#666">⏰ Tiempo agotado</p>`;
-    } else {
-      const blockAttr = bloqueado ? 'disabled style="opacity:0.5;pointer-events:none"' : '';
-      const tieneProno = pronos[p.id] !== undefined;
-      const textoBtn = tieneProno ? 'ENVIADO ✓' : 'GUARDAR PRONÓSTICO';
-      const btnClass = tieneProno ? 'guardar-btn enviado' : 'guardar-btn';
-
-      ui = `
+    }else{
+      const blockAttr=usuarioActivo?'':'disabled style="opacity:0.5;pointer-events:none"';
+      const btnClass=pronos[p.id]!==undefined?'guardar-btn enviado':'guardar-btn';
+      const textoBtn=pronos[p.id]!==undefined?'ENVIADO ✓':'GUARDAR PRONÓSTICO';
+      ui=`
         <div class="pron-controles">
           <button class="gol-btn" ${blockAttr} onclick="edit(${p.id},'l',-1)">-</button>
           <div class="gol-num" id="l_${p.id}">${gt.l}</div>
@@ -479,21 +332,19 @@ function renderPartidos(){
         </div>
         <button class="${btnClass}" ${blockAttr} onclick="save(${p.id})">${textoBtn}</button>
       `;
-
-      if(bloqueado){
+      if(!usuarioActivo){
         ui += `
           <div class="pay-alert">
             <div style="font-size:13px;font-weight:800;margin-bottom:4px;">🔒 PAGO PENDIENTE</div>
             <div style="font-size:12px;margin-bottom:3px;">Monto: ${CONFIG.precio}</div>
             <div style="font-size:12px;font-weight:700;margin-bottom:10px;">Alias: ${CONFIG.mp}</div>
-            <a href="https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Hola, quiero informar mi pago del prode. Mi nombre es: ' + (usuario || ''))}" target="_blank" style="text-decoration:none;">
+            <a href="https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Hola, quiero informar mi pago del prode. Nombre: ' + (usuario||'') + ' | Email: ' + (email||'') + ' | Alias: ' + CONFIG.mp)}" target="_blank" style="text-decoration:none">
               <button class="guardar-btn" style="background:#25D366">Informar pago</button>
             </a>
           </div>
         `;
       }
     }
-
     html += `
       <div class="card">
         <div class="card-header">
@@ -516,13 +367,12 @@ function renderPartidos(){
         </div>
       </div>`;
   });
-
   document.getElementById('tabPartidos').innerHTML = html || '<p style="color:#fff;text-align:center">No hay partidos cargados</p>';
 }
 
 function edit(id,l,d){
-  if(!golesTemp[id]){const p=pronos[id];golesTemp[id]={l:p?p.l:0,v:p?p.v:0};}
   if(!usuarioActivo) return;
+  if(!golesTemp[id]){const p=pronos[id];golesTemp[id]={l:p?p.l:0,v:p?p.v:0}}
   golesTemp[id][l]=Math.max(0,golesTemp[id][l]+d);
   document.getElementById((l==='l'?'l_':'v_')+id).textContent=golesTemp[id][l];
 }
@@ -531,7 +381,7 @@ async function save(id){
   if(!usuarioActivo) return;
   const g=golesTemp[id] || {l:0,v:0};
   showToast('Guardando...');
-  await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'guardarPronostico',usuario,partidoId:id,golesL:g.l,golesV:g.v})});
+  await fetch(API_URL,{method:'POST',body:JSON.stringify({accion:'guardarPronostico',usuario,partidoId:id,golesL:g.l,golesV:g.v})});
   pronos[id]={l:g.l,v:g.v};
   showToast('¡Guardado con éxito! 🎯');
   renderAll();
@@ -543,6 +393,18 @@ function renderPosiciones(){
 }
 
 function renderAdmin(){
+  const usuariosBase=posiciones.slice();
+  const usuariosFiltrados=usuariosBase.filter(u=>{
+    const isAct=u.activo===true||u.activo==='TRUE'||u.activo==='true'||u.activo===undefined;
+    if(adminFiltro==='bloqueados') return !isAct;
+    if(adminFiltro==='activos') return isAct;
+    return true;
+  });
+  const bloqueadosCount=usuariosBase.filter(u=>{
+    const isAct=u.activo===true||u.activo==='TRUE'||u.activo==='true'||u.activo===undefined;
+    return !isAct;
+  }).length;
+
   let partidosHtml=partidos.map(p=>`
     <div class="admin-row">
       <div style="display:flex; flex-direction:column; max-width:60%">
@@ -555,8 +417,9 @@ function renderAdmin(){
         <button class="admin-btn" style="padding:6px 10px; font-size:12px" onclick="setRes(${p.id})">✓</button>
       </div>
     </div>`).join('');
-  let usuariosHtml=posiciones.map(u=>{
-    const isAct=u.activo===true || u.activo==='TRUE' || u.activo==='true' || u.activo===undefined;
+
+  let usuariosHtml=usuariosFiltrados.map(u=>{
+    const isAct=u.activo===true||u.activo==='TRUE'||u.activo==='true'||u.activo===undefined;
     return `
       <div class="user-panel-row">
         <div class="user-info-box">
@@ -568,23 +431,37 @@ function renderAdmin(){
         </button>
       </div>`;
   }).join('');
+
   document.getElementById('tabAdmin').innerHTML = `
+    <div class="admin-section">
+      <h3>⚙ Configuración WhatsApp</h3>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input class="glass-input" id="waInput" style="margin:0;flex:1;min-width:180px;color:#000;background:#fff" value="${WHATSAPP_NUMERO}">
+        <button class="admin-btn" onclick="WHATSAPP_NUMERO=document.getElementById('waInput').value.replace(/\\D/g,'');showToast('WhatsApp actualizado');renderAll()">Guardar WA</button>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:#64748b">Bloqueados: <b>${bloqueadosCount}</b></div>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button class="admin-btn" onclick="adminFiltro='todos';renderAdmin()">Todos</button>
+        <button class="admin-btn" onclick="adminFiltro='bloqueados';renderAdmin()">Bloqueados</button>
+        <button class="admin-btn" onclick="adminFiltro='activos';renderAdmin()">Activos</button>
+      </div>
+    </div>
     <div class="admin-section">
       <h3>⚽ Cargar Resultados Reales</h3>
       ${partidosHtml || '<p>No hay partidos</p>'}
     </div>
     <div class="admin-section">
       <h3>💵 Control de Pagos e Inscripciones</h3>
-      <p style="font-size:11px; color:#64748b; margin-bottom:10px">Tocá el botón del jugador para activarlo o bloquearlo al instante.</p>
-      ${usuariosHtml || '<p>No hay usuarios registrados</p>'}
+      <p style="font-size:11px; color:#64748b; margin-bottom:10px">Todos entran bloqueados. Cuando confirmes el pago, los habilitás desde acá.</p>
+      ${usuariosHtml || '<p>No hay usuarios para mostrar</p>'}
     </div>`;
 }
 
 async function setRes(id){
   const l=document.getElementById('al_'+id).value, v=document.getElementById('av_'+id).value;
-  if(!l || !v) return;
+  if(!l||!v) return;
   showToast('Cargando resultado...');
-  await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'cargarResultado',partidoId:id,golesL:parseInt(l),golesV:parseInt(v)})});
+  await fetch(API_URL,{method:'POST',body:JSON.stringify({accion:'cargarResultado',partidoId:id,golesL:parseInt(l),golesV:parseInt(v)})});
   showToast('Resultado guardado ✅');
 }
 
@@ -592,19 +469,19 @@ async function cambiarEstadoPago(userTarget, estaActivo){
   showToast('Actualizando estado...');
   const nuevoEstado=!estaActivo;
   try{
-    await fetch(API_URL,{method:'POST', body:JSON.stringify({accion:'toggleUsuarioActivo',usuarioModificar:userTarget,nuevoEstado:nuevoEstado})});
+    await fetch(API_URL,{method:'POST',body:JSON.stringify({accion:'toggleUsuarioActivo',usuarioModificar:userTarget,nuevoEstado:nuevoEstado})});
     showToast('¡Usuario modificado con éxito! 🎯');
     const rPos=await fetch(API_URL+'?accion=getPosiciones').then(r=>r.json());
     posiciones=rPos.posiciones;
     renderAdmin();
-  }catch(e){showToast('Error al cambiar estado');}
+  }catch(e){showToast('Error al cambiar estado')}
 }
 
 function renderAll(){
   renderPartidos();
   renderPosiciones();
-  document.getElementById('statPts').textContent = Object.values(pronos).reduce((a,b)=>a+(b.puntos||0),0);
-  document.getElementById('statPend').textContent = partidos.filter(p=>!p.jugado && !pronos[p.id]).length;
+  document.getElementById('statPts').textContent=Object.values(pronos).reduce((a,b)=>a+(b.puntos||0),0);
+  document.getElementById('statPend').textContent=partidos.filter(p=>!p.jugado && !pronos[p.id]).length;
 }
 
 function showToast(m){
