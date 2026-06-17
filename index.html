@@ -7,7 +7,7 @@
 <link rel="icon" href="https://img.icons8.com/emoji/48/soccer-ball-emoji.png" type="image/png">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight:auto}
 html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#000}
 body{position:relative}
 #videoBG{position:fixed;inset:0;z-index:0;overflow:hidden;background:#000}
@@ -20,31 +20,16 @@ body{position:relative}
 .login-top{text-align:center;margin-bottom:28px}
 .login-top h1{color:#fff;font-size:32px;font-weight:800;letter-spacing:2px;text-shadow:0 4px 15px rgba(0,0,0,0.8)}
 .login-top p{color:#a3e635;font-size:14px;font-weight:600;text-transform:uppercase}
-.login-card{
-  background:rgba(255,255,255,0.1);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
-  border:1px solid rgba(255,255,255,0.2);border-radius:24px;padding:30px;width:100%;max-width:360px
-}
+.login-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.2);border-radius:24px;padding:30px;width:100%;max-width:360px}
 .field-label{font-size:11px;color:#fff;display:block;margin-bottom:5px;font-weight:700;text-transform:uppercase}
-.glass-input{
-  width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.3);
-  background:rgba(0,0,0,0.5);color:#fff;font-size:16px;outline:none;margin-bottom:15px
-}
-.btn-login{
-  width:100%;padding:15px;border-radius:12px;border:none;background:#16a34a;
-  color:#fff;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.4)
-}
+.glass-input{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.3);background:rgba(0,0,0,0.5);color:#fff;font-size:16px;outline:none;margin-bottom:15px}
+.btn-login{width:100%;padding:15px;border-radius:12px;border:none;background:#16a34a;color:#fff;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .admin-trigger{position:fixed;bottom:0;right:0;width:80px;height:80px;background:transparent;border:none;cursor:pointer;z-index:9999}
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(5px);
-  z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px
-}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(5px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.hidden{display:none}
 .modal-card{background:#111;border-radius:20px;padding:25px;width:100%;max-width:320px;border:1px solid #16a34a;text-align:center}
 .modal-title{color:#fff;font-size:18px;font-weight:700;margin-bottom:6px}
-.dark-input{
-  width:100%;padding:12px;border-radius:12px;border:1px solid #222;background:#000;color:#fff;
-  font-size:18px;outline:none;margin-bottom:14px;text-align:center;letter-spacing:4px
-}
+.dark-input{width:100%;padding:12px;border-radius:12px;border:1px solid #222;background:#000;color:#fff;font-size:18px;outline:none;margin-bottom:14px;text-align:center;letter-spacing:4px}
 .modal-close{background:none;border:none;color:#666;font-size:13px;cursor:pointer;margin-top:12px;text-decoration:underline}
 .header{background:rgba(0,0,0,0.72);padding:16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #16a34a}
 .header h1{color:#fff;font-size:18px}
@@ -57,14 +42,8 @@ body{position:relative}
 .tab.active{color:#16a34a;border-bottom:3px solid #16a34a}
 .content{padding:12px 12px 100px;position:relative;z-index:6}
 .card{background:#fff;border-radius:18px;margin-bottom:15px;box-shadow:0 8px 20px rgba(0,0,0,0.2);overflow:hidden}
-.card-header{
-  padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;font-weight:600;
-  border-bottom:1px solid #eee;display:flex;justify-content:space-between
-}
-.fecha-badge{
-  background:#e2e8f0;color:#334155;padding:2px 8px;border-radius:6px;
-  font-weight:700;font-size:10px;text-transform:uppercase
-}
+.card-header{padding:10px 15px;background:#f8fafc;font-size:12px;color:#64748b;font-weight:600;border-bottom:1px solid #eee;display:flex;justify-content:space-between}
+.fecha-badge{background:#e2e8f0;color:#334155;padding:2px 8px;border-radius:6px;font-weight:700;font-size:10px;text-transform:uppercase}
 .card-body{padding:15px}
 .equipos{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
 .equipo{flex:1;text-align:center}
@@ -72,59 +51,26 @@ body{position:relative}
 .equipo-nom{font-size:13px;font-weight:700;color:#1e293b}
 .vs-box{font-size:22px;font-weight:900;color:#16a34a;padding:0 10px}
 .pron-controles{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:12px}
-.gol-num{
-  width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;font-size:24px;
-  font-weight:700;display:flex;align-items:center;justify-content:center
-}
-.gol-btn{
-  width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;background:#fff;
-  font-size:20px;font-weight:700;cursor:pointer
-}
-.guardar-btn{
-  width:100%;padding:12px;border-radius:12px;border:none;background:#16a34a;
-  color:#fff;font-weight:700;cursor:pointer
-}
+.gol-num{width:45px;height:45px;border-radius:12px;background:#1e293b;color:#fff;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.gol-btn{width:35px;height:35px;border-radius:50%;border:2px solid #1e293b;background:#fff;font-size:20px;font-weight:700;cursor:pointer}
+.guardar-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#16a34a;color:#fff;font-weight:700;cursor:pointer}
 .guardar-btn.enviado{background:#059669;cursor:not-allowed;opacity:0.7;pointer-events:none}
-.pay-alert{
-  position:relative;z-index:6;background:rgba(255,255,255,0.97);border:2px solid #dc2626;
-  border-radius:14px;padding:14px;margin-top:12px;font-size:12px;color:#991b1b;
-  text-align:center;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,0.15)
-}
+.pay-alert{position:relative;z-index:6;background:rgba(255,255,255,0.97);border:2px solid #dc2626;border-radius:14px;padding:14px;margin-top:12px;font-size:12px;color:#991b1b;text-align:center;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,0.15)}
 .pos-row{display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid #eee}
 .pos-num{width:30px;font-weight:800;color:#16a34a}
 .pos-nombre{flex:1;font-weight:600}
 .pos-pts{font-weight:800;font-size:16px}
-.admin-section{
-  background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1)
-}
+.admin-section{background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
 .admin-section h3{font-size:16px;color:#16a34a;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:5px}
-.admin-row{
-  padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between
-}
-.num-input{
-  width:55px;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:center;
-  margin-right:5px;font-size:16px;font-weight:700
-}
-.admin-btn{
-  background:#16a34a;color:#fff;border:none;padding:10px 14px;border-radius:8px;
-  font-weight:700;cursor:pointer
-}
-.user-panel-row{
-  display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f1f5f9
-}
+.admin-row{padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
+.num-input{width:55px;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:center;margin-right:5px;font-size:16px;font-weight:700}
+.admin-btn{background:#16a34a;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
+.user-panel-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f1f5f9}
 .user-info-box{display:flex;flex-direction:column}
-.toggle-pay-btn{
-  padding:8px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;
-  cursor:pointer;color:#fff;min-width:110px
-}
+.toggle-pay-btn{padding:8px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;color:#fff;min-width:110px}
 .btn-pay-active{background:#16a34a}
 .btn-pay-blocked{background:#dc2626}
-.toast{
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-  background:#000;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;
-  z-index:20000;opacity:0;transition:0.3s;pointer-events:none
-}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;z-index:20000;opacity:0;transition:0.3s;pointer-events:none}
 .toast.show{opacity:1}
 </style>
 </head>
@@ -278,6 +224,7 @@ async function doLogin(){
     document.getElementById('headerNombre').textContent='¡Hola, '+n.split(' ')[0]+'!';
     usuarioActivo=false;
     renderAll();
+    if(!sessionStorage.getItem('payBannerShown')) sessionStorage.setItem('payBannerShown','1');
   }catch(e){
     showToast('Error al conectar con Sheets');
     document.getElementById('loginBtn').disabled=false;
@@ -294,9 +241,23 @@ function switchTab(t,btn){
   if(t==='admin') renderAdmin();
 }
 
+function renderPaymentBanner(){
+  if(sessionStorage.getItem('payBannerShown')!=='1' || usuarioActivo) return '';
+  return `
+    <div class="pay-alert" style="margin-bottom:12px">
+      <div style="font-size:14px;font-weight:900;margin-bottom:4px;">🔒 PAGO PENDIENTE</div>
+      <div style="font-size:12px;margin-bottom:3px;">Monto: ${CONFIG.precio}</div>
+      <div style="font-size:12px;font-weight:700;margin-bottom:10px;">Alias: ${CONFIG.mp}</div>
+      <a href="https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Hola, quiero informar mi pago del prode. Nombre: ' + (usuario||'') + ' | Email: ' + (email||'') + ' | Alias: ' + CONFIG.mp)}" target="_blank" style="text-decoration:none">
+        <button class="guardar-btn" style="background:#25D366">Informar pago</button>
+      </a>
+    </div>`;
+}
+
 function renderPartidos(){
   let html=''; const ahora=new Date();
-  partidos.forEach(p=>{
+  const banner=renderPaymentBanner();
+  partidos.forEach((p,idx)=>{
     const pr=pronos[p.id], tiene=pr!==undefined;
     const gt=golesTemp[p.id]||{l:tiene?pr.l:0,v:tiene?pr.v:0};
     let cerrado=false;
@@ -332,18 +293,6 @@ function renderPartidos(){
         </div>
         <button class="${btnClass}" ${blockAttr} onclick="save(${p.id})">${textoBtn}</button>
       `;
-      if(!usuarioActivo){
-        ui += `
-          <div class="pay-alert">
-            <div style="font-size:13px;font-weight:800;margin-bottom:4px;">🔒 PAGO PENDIENTE</div>
-            <div style="font-size:12px;margin-bottom:3px;">Monto: ${CONFIG.precio}</div>
-            <div style="font-size:12px;font-weight:700;margin-bottom:10px;">Alias: ${CONFIG.mp}</div>
-            <a href="https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Hola, quiero informar mi pago del prode. Nombre: ' + (usuario||'') + ' | Email: ' + (email||'') + ' | Alias: ' + CONFIG.mp)}" target="_blank" style="text-decoration:none">
-              <button class="guardar-btn" style="background:#25D366">Informar pago</button>
-            </a>
-          </div>
-        `;
-      }
     }
     html += `
       <div class="card">
@@ -352,6 +301,7 @@ function renderPartidos(){
           <span class="fecha-badge">${p.fechaTorneo || 'Prode'}</span>
         </div>
         <div class="card-body">
+          ${idx===0 ? banner : ''}
           <div class="equipos">
             <div class="equipo">
               <img src="${ESCUDOS[p.local]||''}" class="escudo-img" onerror="this.style.display='none'">
