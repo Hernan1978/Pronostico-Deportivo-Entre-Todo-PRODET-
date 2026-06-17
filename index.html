@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Prode 2026</title>
-//img.icons8.com/emoji/48/soccer-ball-emoji.png" type="image/png">
+<link rel="icon" href="https://img.icons8.com/emoji/48/soccer-ball-emoji.png" type="image/png">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#000}
@@ -240,10 +241,12 @@ body{position:relative}
       <p>Torneo Argentino</p>
     </div>
     <div class="login-card">
-      abel class="field-label">Nombre y Apellido</label>
-      <input class="glass-input" id="loginNombre" placeholder="Ej: Hernán Pérez">
-      abel class="field-label">Email</label>
-      <input class="glass-input" id="loginEmail" type="email" placeholder="ejemplo@correo.com">
+      <label class="field-label" for="loginNombre">Nombre y Apellido</label>
+      <input class="glass-input" id="loginNombre" type="text" placeholder="Ej: Hernán Pérez" autocomplete="name">
+
+      <label class="field-label" for="loginEmail">Email</label>
+      <input class="glass-input" id="loginEmail" type="email" placeholder="ejemplo@correo.com" autocomplete="email">
+
       <button class="btn-login" id="loginBtn" onclick="doLogin()">Entrar a Jugar →</button>
     </div>
   </div>
@@ -289,7 +292,7 @@ body{position:relative}
 <script>
 const API_URL = 'https://script.google.com/macros/s/AKfycbyhfDoyVrHe_8Fn0sGkA4RxthTFpgJz0-yeeVNpBcJk7N-aLRuAFn4wew-eVeEEgNU2Qg/exec';
 const ADMIN_PIN = '1234';
-const CONFIG = { mp: 'prode.hernan.mp', precio: '$2000' };
+const CONFIG = { mp: 'prode.hernan.mp', precio: '$5000' };
 const VIDEO_FILES = ['video1.mp4','video2.mp4','video3.mp4','video4.mp4'];
 const VIDEO_DURATION_MS = 5000;
 const FADE_MS = 1000;
